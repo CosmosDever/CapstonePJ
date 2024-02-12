@@ -2,6 +2,7 @@ import express from "express";
 import { Config } from "../lib/Config.mjs";
 import accountRouter from "../router/account.mjs";
 const app = express();
+app.use(express.json());
 const PORT = Config.PORT;
 
 app.get("/", (req, res) => {
