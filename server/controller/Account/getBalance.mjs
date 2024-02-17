@@ -13,6 +13,6 @@ export const fetchBalances = async (req, res) => {
     res.send({ usdt: usdt[0].free, btc: btc[0].free });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ error: "Internal Server Error" }); // Handle errors properly
+    res.status(500).send({ error: "Internal Server Error" });
   }
 };
