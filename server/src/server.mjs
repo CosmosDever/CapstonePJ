@@ -16,4 +16,4 @@ app.use("/BuySell", buysellRouter);
 app.listen(PORT, async () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
-// node --wacth ./src/server.js
+// node --watch ./src/server.mjs
