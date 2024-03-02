@@ -1,20 +1,25 @@
+import { client, connectDB } from "../../src/server.mjs";
+
 export const setindicator = async (req, res) => {
   try {
-    const indicator = req.body;
-    res.send(indicator);
+    await connectDB();
+    const { username, indicator } = req.body;
+    const updatedAccount = await client
+      .db("CapSTData")
+      .collection("Account")
+      .findOneAndUpdate(
+        { "accuser.username": username },
+        { $set: { "accsetting.indicator": indicator } },
+        { returnOriginal: false }
+      );
+
+    if (!updatedAccount) {
+      return res.status(404).send({ error: "Account not found" });
+    }
+
+    res.send(updatedAccount);
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 };
-
-// {
-//       indicator1: "",
-//       indicator2: "",
-//       indicator3: "",
-//       indicator4: "",
-//       indicator5: "",
-//       indicator6: "",
-//       timepre : "",
-//       amount: "",
-// }
