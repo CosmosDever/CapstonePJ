@@ -13,7 +13,7 @@
   "dependencies": {
     "binance": "^2.9.4",
     "dotenv": "^16.4.1",
-    "express": "^4.18.2"
+    "express": "^4.18.3"
   },
   "babel": {
     "presets": [
