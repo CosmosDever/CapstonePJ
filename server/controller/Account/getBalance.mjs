@@ -1,11 +1,18 @@
 import { MainClient } from "binance";
-import { API_KEY, API_SECRET } from "../Account/getAPI.mjs";
-
+import { LocalStorage } from "node-localstorage";
+const localStorage = new LocalStorage("./scratch");
 export const fetchBalances = async (req, res) => {
   try {
+    if (
+      localStorage.getItem("API_KEY") === null ||
+      localStorage.getItem("API_SECRET") === null
+    ) {
+      res.send("Please set API_KEY and API_SECRET");
+      return false;
+    }
     const client = new MainClient({
-      api_key: API_KEY,
-      api_secret: API_SECRET,
+      api_key: localStorage.getItem("API_KEY"),
+      api_secret: localStorage.getItem("API_SECRET"),
     });
     const coin = await client.getBalances();
     const usdt = coin.filter((res) => res.coin === "USDT");
