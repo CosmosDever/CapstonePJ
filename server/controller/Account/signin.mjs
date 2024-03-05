@@ -24,7 +24,7 @@ export const signin = async (req, res) => {
       res.status(400).json({ message: "password not match" });
       return false;
     }
-    const payload = { id: findEmail._id };
+    const payload = { findEmail };
     const token = jwt.sign(payload, secret, { expiresIn: "7d" });
     res.cookie("token", token, { httpOnly: true });
     res.status(200).json({ message: "signin success", result: findEmail });
