@@ -181,6 +181,28 @@ filtered_conditions = [f"{condition} <= {value}" for condition, value in unique_
 
 # Print the filtered list
 # print(filtered_conditions)
+criteria = {}
+for condition in filtered_conditions:
+    # แยก condition ตาม '<='
+    indicator, value = condition.split(' <= ')
+    criteria[indicator] = float(value)
+
+# หา indicator ที่มีค่าเกณฑ์น้อยที่สุด
+lowest_value_indicator = None
+lowest_value = float('inf')
+
+# ตรวจสอบค่าเงื่อนไขและหาค่าน้อยที่สุด
+for indicator, value in criteria.items():
+    # เปรียบเทียบค่าและบันทึกค่าเกณฑ์น้อยที่สุด
+    if value < lowest_value:
+        lowest_value = value
+        lowest_value_indicator = indicator
+
+# กำหนด filtered_conditions ตามค่าเกณฑ์น้อยที่สุดที่พบ
+filtered_conditions = [f"{lowest_value_indicator} <= {lowest_value:.2f}"]
+
+# แสดงผลตัวบ่งชี้และค่าเกณฑ์น้อยที่สุด
+# print("filtered_conditions:", filtered_conditions)
 
 df_filtered = df[df.eval('|'.join(filtered_conditions))]
 
@@ -309,6 +331,7 @@ def recommendation():
 
     # กำหนดคำแนะนำตามเงื่อนไขที่คุณให้มา
     if today == last_date_in_df_filtered:
+        recommendation = "ควรซื้อ"
         if is_today_in_states:
             recommendation = "ควรขาย"
         else:
