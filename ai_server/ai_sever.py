@@ -27,7 +27,8 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator
 import seaborn as sns
 import warnings
-from flask import Flask, jsonify
+from flask import Flask, jsonify , request
+
 
 # Load data
 ticker = "BTC-USD"
@@ -285,8 +286,20 @@ sns.despine(offset=10)
 
 app = Flask(__name__)
 
-@app.route('/api/recommendation', methods=['GET'])
+@app.route('/api/recommendation', methods=['GET', 'POST'])
 def recommendation():
+    if request.method == 'POST':
+        data = request.get_json()
+        time_period_ADX = data.get('time_period_ADX')
+        time_period_RSI = data.get('time_period_RSI')
+        time_period_SMA = data.get('time_period_SMA')
+        time_period_ATR = data.get('time_period_ATR')
+    else:
+        time_period_ADX = 14
+        time_period_RSI = 14
+        time_period_SMA = 50
+        time_period_ATR = 14
+
     # ตรวจสอบว่าวันนี้เป็นวันสุดท้ายใน df_filtered หรือไม่
     today = datetime.datetime.today().date()
     last_date_in_df_filtered = df_filtered.index[-1].date()
@@ -308,6 +321,23 @@ def recommendation():
         'date': str(today),
         'recommendation': recommendation
     })
+
+@app.route('/api/set-parameters', methods=['POST'])
+def set_parameters():
+    data = request.get_json()
+    time_period_ATR = data.get('time_period_ATR')
+    time_period_ADX = data.get('time_period_ADX')
+    time_period_RSI = data.get('time_period_RSI')
+    time_period_SMA = data.get('time_period_SMA')
+
+    # print(f"time_period_ATR: {time_period_ATR}")
+    # print(f"time_period_ADX: {time_period_ADX}")
+    # print(f"time_period_RSI: {time_period_RSI}")
+    # print(f"time_period_SMA: {time_period_SMA}")
+    # คุณสามารถใช้ค่าพารามิเตอร์เหล่านี้อัปเดตการคำนวณของคุณ
+    # เช่นอัปเดต time_period_ADX, time_period_RSI, time_period_SMA, time_period_ATR
+
+    return jsonify({'message': 'Parameters set successfully!'})
 
 # รันแอป Flask
 if __name__ == '__main__':
