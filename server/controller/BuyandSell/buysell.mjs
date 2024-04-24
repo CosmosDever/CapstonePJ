@@ -15,6 +15,7 @@ export const buysellorder = async (req, res) => {
       //     quantity: req.body.amount,
       //   });
       res.send("buysuccess");
+      console.log("buysuccess");
     }
     if (req.body.recommendation == "sell") {
       //   const client = new MainClient({
@@ -28,6 +29,11 @@ export const buysellorder = async (req, res) => {
       //     quantity: req.body.amount,
       //   });
       res.send("sellsuccess");
+      console.log("sellsuccess");
+    }
+    if (req.body.recommendation == "wait") {
+      res.send("wait");
+      console.log("wait");
     }
   } catch (error) {
     console.log(error);
