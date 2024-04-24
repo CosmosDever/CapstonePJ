@@ -331,13 +331,13 @@ def recommendation():
 
     # กำหนดคำแนะนำตามเงื่อนไขที่คุณให้มา
     if today == last_date_in_df_filtered:
-        recommendation = "ควรซื้อ"
+        recommendation = "buy"
         if is_today_in_states:
-            recommendation = "ควรขาย"
+            recommendation = "sell"
         else:
-            recommendation = "ควรรอขาย"
+            recommendation = "wait"
     else:
-        recommendation = "ควรรอการตัดสินใจ"
+        recommendation = "wait"
 
     # ส่งคำแนะนำกลับในรูปแบบ JSON
     return jsonify({
