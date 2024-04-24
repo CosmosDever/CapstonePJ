@@ -308,7 +308,7 @@ sns.despine(offset=10)
 
 app = Flask(__name__)
 
-@app.route('/api/recommendation', methods=['GET', 'POST'])
+@app.route('http://localhost:3605/BuySell/BuySellOrder', methods=['POST'])
 def recommendation():
     if request.method == 'POST':
         data = request.get_json()
@@ -345,7 +345,7 @@ def recommendation():
         'recommendation': recommendation
     })
 
-@app.route('/api/set-parameters', methods=['POST'])
+@app.route('http://localhost:3605/Account/setindicator', methods=['POST'])
 def set_parameters():
     data = request.get_json()
     time_period_ATR = data.get('time_period_ATR')

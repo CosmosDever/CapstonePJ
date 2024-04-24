@@ -3,7 +3,7 @@ import { LocalStorage } from "node-localstorage";
 const localStorage = new LocalStorage("./scratch");
 export const buysellorder = async (req, res) => {
   try {
-    if (req.body.buysell == "buy") {
+    if (req.body.recommendation == "buy") {
       //   const client = new MainClient({
       //     api_key: localStorage.getItem("API_KEY"),
       //     api_secret: localStorage.getItem("API_SECRET"),
@@ -16,7 +16,7 @@ export const buysellorder = async (req, res) => {
       //   });
       res.send("buysuccess");
     }
-    if (req.body.buysell == "sell") {
+    if (req.body.recommendation == "sell") {
       //   const client = new MainClient({
       //     api_key: localStorage.getItem("API_KEY"),
       //     api_secret: localStorage.getItem("API_SECRET"),
