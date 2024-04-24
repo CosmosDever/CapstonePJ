@@ -14,7 +14,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.tree import DecisionTreeRegressor
 import sys
 from sklearn import tree
-import graphviz
 import re
 import datetime
 import pandas_datareader as web
@@ -308,7 +307,8 @@ sns.despine(offset=10)
 
 app = Flask(__name__)
 
-@app.route('http://localhost:3605/BuySell/BuySellOrder', methods=['POST'])
+@app.route('http://localhost:3605/BuySell/BuySellOrder', methods=['GET','POST'])
+
 def recommendation():
     if request.method == 'POST':
         data = request.get_json()
