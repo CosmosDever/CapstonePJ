@@ -28,6 +28,7 @@ import seaborn as sns
 import warnings
 from flask import Flask, jsonify , request
 import requests
+import time
 
 
 # Load data
@@ -368,62 +369,131 @@ sns.despine(offset=10)
 #     app.run(host='0.0.0.0', port=9090)
 
 # Define the URL
-url_get = "http://localhost:3605/Account/getindicator"
+# url_get = "http://localhost:3605/Account/getindicator"
 
-# Define the JSON body
-json_body = {
+# # Define the JSON body
+# json_body = {
+#     "username": "test"
+# }
+
+# # Send a GET request
+# response = requests.get(url_get, json=json_body)
+
+# # Check if the request was successful (status code 200)
+# if response.status_code == 200:
+#     # Parse the JSON response
+#     response_data = response.json()
+    
+#     # Extract the "indicator" object
+#     indicator = response_data.get('accsetting', {}).get('indicator', None)
+#     time_period_ADX = indicator.get('time_period_ADX')
+#     time_period_RSI = indicator.get('time_period_RSI')
+#     time_period_SMA = indicator.get('time_period_SMA')
+#     time_period_ATR = indicator.get('time_period_ATR')
+    
+#     # Check if the "indicator" object was found
+#     if indicator :
+#         # Print the "indicator" object
+#         print(indicator)
+        
+#         # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
+#         today = datetime.datetime.today().date()
+#         last_date_in_df_filtered = df_filtered.index[-1].date()
+#         is_today_in_states = today in filtered_states['Date'].values
+        
+#         # Determine the recommendation based on the date and conditions
+#         if today == last_date_in_df_filtered:
+#             recommendation = "buy"
+#             if is_today_in_states:
+#                 recommendation = "sell"
+#             else:
+#                 recommendation = "wait"
+#         else:
+#             recommendation = "wait"
+        
+#         # Send a POST request to the "BuySell/BuySellOrder" URL with the recommendation
+#         url_post = "http://localhost:3605/BuySell/BuySellOrder"
+#         json_body = {
+#             "recommendation": recommendation
+#         }
+#         response = requests.post(url_post, json=json_body)
+
+#         # Check if the request was successful (status code 200)
+#         print(f"Request successful with status code: {response.status_code}")
+        
+        
+#     else:
+#         print("Indicator data not found in the response.")
+# else:
+#     # Handle request failure
+#     print(f"Request failed with status code: {response.status_code}")
+#     print(f"Reason: {response.reason}")
+
+# Define the URLs
+url_get = "http://localhost:3605/Account/getindicator"
+url_post = "http://localhost:3605/BuySell/BuySellOrder"
+
+# Define the JSON body for GET request
+json_body_get = {
     "username": "test"
 }
 
-# Send a GET request
-response = requests.get(url_get, json=json_body)
-
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Parse the JSON response
-    response_data = response.json()
-    
-    # Extract the "indicator" object
-    indicator = response_data.get('accsetting', {}).get('indicator', None)
-    time_period_ADX = indicator.get('time_period_ADX')
-    time_period_RSI = indicator.get('time_period_RSI')
-    time_period_SMA = indicator.get('time_period_SMA')
-    time_period_ATR = indicator.get('time_period_ATR')
-    
-    # Check if the "indicator" object was found
-    if indicator :
-        # Print the "indicator" object
-        print(indicator)
-        
-        # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
-        today = datetime.datetime.today().date()
-        last_date_in_df_filtered = df_filtered.index[-1].date()
-        is_today_in_states = today in filtered_states['Date'].values
-        
-        # Determine the recommendation based on the date and conditions
-        if today == last_date_in_df_filtered:
-            recommendation = "buy"
-            if is_today_in_states:
-                recommendation = "sell"
-            else:
-                recommendation = "wait"
-        else:
-            recommendation = "wait"
-        
-        # Send a POST request to the "BuySell/BuySellOrder" URL with the recommendation
-        url_post = "http://localhost:3605/BuySell/BuySellOrder"
-        json_body = {
-            "recommendation": recommendation
-        }
-        response = requests.post(url_post, json=json_body)
+while True:
+    try:
+        # Send a GET request
+        response = requests.get(url_get, json=json_body_get)
 
         # Check if the request was successful (status code 200)
-        print(f"Request successful with status code: {response.status_code}")
-        
-        
-    else:
-        print("Indicator data not found in the response.")
-else:
-    # Handle request failure
-    print(f"Request failed with status code: {response.status_code}")
-    print(f"Reason: {response.reason}")
+        if response.status_code == 200:
+            # Parse the JSON response
+            response_data = response.json()
+            
+            # Extract the "indicator" object
+            indicator = response_data.get('accsetting', {}).get('indicator', None)
+            
+            # Check if the "indicator" object was found
+            if indicator:
+                # Extract time periods from the indicator
+                time_period_ADX = indicator.get('time_period_ADX')
+                time_period_RSI = indicator.get('time_period_RSI')
+                time_period_SMA = indicator.get('time_period_SMA')
+                time_period_ATR = indicator.get('time_period_ATR')
+                
+                # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
+                today = datetime.datetime.today().date()
+                last_date_in_df_filtered = df_filtered.index[-1].date()
+                is_today_in_states = today in filtered_states['Date'].values
+                
+                # Determine the recommendation based on the date and conditions
+                if today == last_date_in_df_filtered:
+                    recommendation = "buy"
+                    if is_today_in_states:
+                        recommendation = "sell"
+                    else:
+                        recommendation = "wait"
+                else:
+                    recommendation = "wait"
+                
+                # Define the JSON body for POST request
+                json_body_post = {
+                    "recommendation": recommendation
+                }
+                
+                # Send a POST request to the "BuySell/BuySellOrder" URL with the recommendation
+                response_post = requests.post(url_post, json=json_body_post)
+
+                # Check if the request was successful (status code 200)
+                print(f"POST request successful with status code: {response_post.status_code}")
+            
+            else:
+                print("Indicator data not found in the response.")
+        else:
+            # Handle request failure
+            print(f"GET request failed with status code: {response.status_code}")
+            print(f"Reason: {response.reason}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    # Delay for a certain amount of time before repeating the loop
+    time.sleep(10)  # Adjust the sleep time as needed
