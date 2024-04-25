@@ -5,7 +5,7 @@ import { setindicator } from "../controller/Account/indicatorset.mjs";
 import { signup } from "../controller/Account/signup.mjs";
 import { signin } from "../controller/Account/signin.mjs";
 import { signout } from "../controller/Account/signout.mjs";
-import { getindicator }  from "../controller/Account/getindicator.mjs";
+import { getindicator } from "../controller/Account/getindicator.mjs";
 const router = express.Router();
 
 router.post("/setapi", api);

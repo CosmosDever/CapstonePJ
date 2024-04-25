@@ -1,4 +1,3 @@
-
 import { client, connectDB } from "../../src/server.mjs";
 
 export const getindicator = async (req, res) => {

@@ -26,8 +26,9 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator
 import seaborn as sns
 import warnings
-# from flask import Flask, jsonify , request
+from flask import Flask, jsonify , request
 import requests
+import time
 
 
 # Load data
@@ -310,11 +311,11 @@ sns.despine(offset=10)
 
 # app = Flask(__name__)
 
-# @app.route('/Account/setindicator', methods=['GET', 'POST'])
+# @app.route('http://localhost:3605/BuySell/BuySellOrder', methods=['GET','POST'])
+
 # def recommendation():
 #     if request.method == 'POST':
 #         data = request.get_json()
-        
 #         time_period_ADX = data.get('time_period_ADX')
 #         time_period_RSI = data.get('time_period_RSI')
 #         time_period_SMA = data.get('time_period_SMA')
@@ -342,73 +343,159 @@ sns.despine(offset=10)
 #     else:
 #         recommendation = "wait"
 
-#     port_post = "http://127.0.0.1:3605/BuySell/BuySellOrder"
-#     r = requests.post(port_post, json={'recommendation': recommendation})
 #     # ส่งคำแนะนำกลับในรูปแบบ JSON
-#     # return jsonify({
-#     #     'date': str(today),
-#     #     'recommendation': recommendation
-#     # })
-#     return r.json()
+#     return jsonify({
+#         'date': str(today),
+#         'recommendation': recommendation
+#     })
 
+# @app.route('http://localhost:3605/Account/setindicator', methods=['POST'])
+# def set_parameters():
+#     data = request.get_json()
+#     time_period_ATR = data.get('time_period_ATR')
+#     time_period_ADX = data.get('time_period_ADX')
+#     time_period_RSI = data.get('time_period_RSI')
+#     time_period_SMA = data.get('time_period_SMA')
+
+#     # print(f"time_period_ATR: {time_period_ATR}")
+#     # print(f"time_period_ADX: {time_period_ADX}")
+#     # print(f"time_period_RSI: {time_period_RSI}")
+#     # print(f"time_period_SMA: {time_period_SMA}")
+#     # คุณสามารถใช้ค่าพารามิเตอร์เหล่านี้อัปเดตการคำนวณของคุณ
+#     # เช่นอัปเดต time_period_ADX, time_period_RSI, time_period_SMA, time_period_ATR
+
+#     return jsonify({'message': 'Parameters set successfully!'})
+
+# # รันแอป Flask
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=9090)
 
-import requests
-import datetime
-
 # Define the URL
-url_get = "http://localhost:3605/Account/getindicator"
+# url_get = "http://localhost:3605/Account/getindicator"
 
-# Define the JSON body
-json_body = {
+# # Define the JSON body
+# json_body = {
+#     "username": "test"
+# }
+
+# # Send a GET request
+# response = requests.get(url_get, json=json_body)
+
+# # Check if the request was successful (status code 200)
+# if response.status_code == 200:
+#     # Parse the JSON response
+#     response_data = response.json()
+    
+#     # Extract the "indicator" object
+#     indicator = response_data.get('accsetting', {}).get('indicator', None)
+#     time_period_ADX = indicator.get('time_period_ADX')
+#     time_period_RSI = indicator.get('time_period_RSI')
+#     time_period_SMA = indicator.get('time_period_SMA')
+#     time_period_ATR = indicator.get('time_period_ATR')
+    
+#     # Check if the "indicator" object was found
+#     if indicator :
+#         # Print the "indicator" object
+#         print(indicator)
+        
+#         # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
+#         today = datetime.datetime.today().date()
+#         last_date_in_df_filtered = df_filtered.index[-1].date()
+#         is_today_in_states = today in filtered_states['Date'].values
+        
+#         # Determine the recommendation based on the date and conditions
+#         if today == last_date_in_df_filtered:
+#             recommendation = "buy"
+#             if is_today_in_states:
+#                 recommendation = "sell"
+#             else:
+#                 recommendation = "wait"
+#         else:
+#             recommendation = "wait"
+        
+#         # Send a POST request to the "BuySell/BuySellOrder" URL with the recommendation
+#         url_post = "http://localhost:3605/BuySell/BuySellOrder"
+#         json_body = {
+#             "recommendation": recommendation
+#         }
+#         response = requests.post(url_post, json=json_body)
+
+#         # Check if the request was successful (status code 200)
+#         print(f"Request successful with status code: {response.status_code}")
+        
+        
+#     else:
+#         print("Indicator data not found in the response.")
+# else:
+#     # Handle request failure
+#     print(f"Request failed with status code: {response.status_code}")
+#     print(f"Reason: {response.reason}")
+
+# Define the URLs
+url_get = "http://localhost:3605/Account/getindicator"
+url_post = "http://localhost:3605/BuySell/BuySellOrder"
+
+# Define the JSON body for GET request
+json_body_get = {
     "username": "test"
 }
 
-# Send a GET request
-response = requests.get(url_get, json=json_body)
+while True:
+    try:
+        # Send a GET request
+        response = requests.get(url_get, json=json_body_get)
 
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Parse the JSON response
-    response_data = response.json()
-    
-    # Extract the "indicator" object
-    indicator = response_data.get('accsetting', {}).get('indicator', None)
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the JSON response
+            response_data = response.json()
+            
+            # Extract the "indicator" object
+            indicator = response_data.get('accsetting', {}).get('indicator', None)
+            
+            # Check if the "indicator" object was found
+            if indicator:
+                # Extract time periods from the indicator
+                time_period_ADX = indicator.get('time_period_ADX')
+                time_period_RSI = indicator.get('time_period_RSI')
+                time_period_SMA = indicator.get('time_period_SMA')
+                time_period_ATR = indicator.get('time_period_ATR')
+                
+                # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
+                today = datetime.datetime.today().date()
+                last_date_in_df_filtered = df_filtered.index[-1].date()
+                is_today_in_states = today in filtered_states['Date'].values
+                
+                # Determine the recommendation based on the date and conditions
+                if today == last_date_in_df_filtered:
+                    recommendation = "buy"
+                    if is_today_in_states:
+                        recommendation = "sell"
+                    else:
+                        recommendation = "wait"
+                else:
+                    recommendation = "wait"
+                
+                # Define the JSON body for POST request
+                json_body_post = {
+                    "recommendation": recommendation
+                }
+                
+                # Send a POST request to the "BuySell/BuySellOrder" URL with the recommendation
+                response_post = requests.post(url_post, json=json_body_post)
 
-    time_period_ADX = indicator.get('time_period_ADX')
-    time_period_RSI = indicator.get('time_period_RSI')
-    time_period_SMA = indicator.get('time_period_SMA')
-    time_period_ATR = indicator.get('time_period_ATR')
-    
-    # Check if the "indicator" object was found
-    if indicator is not None:   
-        # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
-        today = datetime.datetime.today().date()
-        last_date_in_df_filtered = df_filtered.index[-1].date()
-        is_today_in_states = today in filtered_states['Date'].values
-        
-        # Determine the recommendation based on the date and conditions
-        if today == last_date_in_df_filtered:
-            recommendation = "buy"
-            if is_today_in_states:
-                recommendation = "sell"
+                # Check if the request was successful (status code 200)
+                print(f"POST request successful with status code: {response_post.status_code}")
+            
             else:
-                recommendation = "wait"
+                print("Indicator data not found in the response.")
         else:
-            recommendation = "wait"
-        
-        # Print the recommendation
-        url_post = "http://localhost:3605/BuySell/BuySellOrder"
-        requests.post(url_post, json={"recommendation": recommendation})
-        print(f"Recommendation for {today}: {recommendation}")
-        
-        # Assuming you want to use the recommendation for further processing
-        # You can add additional code here if necessary
-        
-    else:
-        print("Indicator data not found in the response.")
-else:
-    # Handle request failure
-    print(f"Request failed with status code: {response.status_code}")
-    print(f"Reason: {response.reason}")
+            # Handle request failure
+            print(f"GET request failed with status code: {response.status_code}")
+            print(f"Reason: {response.reason}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    # Delay for a certain amount of time before repeating the loop
+    time.sleep(10)  # Adjust the sleep time as needed
