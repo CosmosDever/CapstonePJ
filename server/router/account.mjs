@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/setapi", api);
 router.get("/getBalance", fetchBalances);
 router.post("/setindicator", setindicator);
-router.post("/getindicator", getindicator);
+router.get("/getindicator", getindicator);
 router.post("/signup", signup);
 router.post("/signin", signin);
 router.post("/signout", signout);
