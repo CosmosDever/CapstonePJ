@@ -26,7 +26,8 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import YearLocator, MonthLocator
 import seaborn as sns
 import warnings
-from flask import Flask, jsonify , request
+# from flask import Flask, jsonify , request
+import requests
 
 
 # Load data
@@ -41,6 +42,8 @@ time_period_ATR = 14
 time_period_ADX = 14
 time_period_RSI = 14
 time_period_SMA = 30
+
+
 
 # Create features
 df['EMA12'] = ta.EMA(df['Settle'].values, timeperiod=12)
@@ -305,63 +308,107 @@ sns.despine(offset=10)
 # else:
 #     print("ควรรอการตัดสินใจ")
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-@app.route('http://localhost:3605/BuySell/BuySellOrder', methods=['GET','POST'])
+# @app.route('/Account/setindicator', methods=['GET', 'POST'])
+# def recommendation():
+#     if request.method == 'POST':
+#         data = request.get_json()
+        
+#         time_period_ADX = data.get('time_period_ADX')
+#         time_period_RSI = data.get('time_period_RSI')
+#         time_period_SMA = data.get('time_period_SMA')
+#         time_period_ATR = data.get('time_period_ATR')
+#     else:
+#         time_period_ADX = 14
+#         time_period_RSI = 14
+#         time_period_SMA = 50
+#         time_period_ATR = 14
 
-def recommendation():
-    if request.method == 'POST':
-        data = request.get_json()
-        time_period_ADX = data.get('time_period_ADX')
-        time_period_RSI = data.get('time_period_RSI')
-        time_period_SMA = data.get('time_period_SMA')
-        time_period_ATR = data.get('time_period_ATR')
-    else:
-        time_period_ADX = 14
-        time_period_RSI = 14
-        time_period_SMA = 50
-        time_period_ATR = 14
+#     # ตรวจสอบว่าวันนี้เป็นวันสุดท้ายใน df_filtered หรือไม่
+#     today = datetime.datetime.today().date()
+#     last_date_in_df_filtered = df_filtered.index[-1].date()
 
-    # ตรวจสอบว่าวันนี้เป็นวันสุดท้ายใน df_filtered หรือไม่
-    today = datetime.datetime.today().date()
-    last_date_in_df_filtered = df_filtered.index[-1].date()
+#     # ตรวจสอบว่าวันนี้อยู่ใน filtered_states หรือไม่
+#     is_today_in_states = today in filtered_states['Date'].values
 
-    # ตรวจสอบว่าวันนี้อยู่ใน filtered_states หรือไม่
-    is_today_in_states = today in filtered_states['Date'].values
+#     # กำหนดคำแนะนำตามเงื่อนไขที่คุณให้มา
+#     if today == last_date_in_df_filtered:
+#         recommendation = "buy"
+#         if is_today_in_states:
+#             recommendation = "sell"
+#         else:
+#             recommendation = "wait"
+#     else:
+#         recommendation = "wait"
 
-    # กำหนดคำแนะนำตามเงื่อนไขที่คุณให้มา
-    if today == last_date_in_df_filtered:
-        recommendation = "buy"
-        if is_today_in_states:
-            recommendation = "sell"
+#     port_post = "http://127.0.0.1:3605/BuySell/BuySellOrder"
+#     r = requests.post(port_post, json={'recommendation': recommendation})
+#     # ส่งคำแนะนำกลับในรูปแบบ JSON
+#     # return jsonify({
+#     #     'date': str(today),
+#     #     'recommendation': recommendation
+#     # })
+#     return r.json()
+
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=9090)
+
+import requests
+import datetime
+
+# Define the URL
+url_get = "http://localhost:3605/Account/getindicator"
+
+# Define the JSON body
+json_body = {
+    "username": "test"
+}
+
+# Send a GET request
+response = requests.get(url_get, json=json_body)
+
+# Check if the request was successful (status code 200)
+if response.status_code == 200:
+    # Parse the JSON response
+    response_data = response.json()
+    
+    # Extract the "indicator" object
+    indicator = response_data.get('accsetting', {}).get('indicator', None)
+
+    time_period_ADX = indicator.get('time_period_ADX')
+    time_period_RSI = indicator.get('time_period_RSI')
+    time_period_SMA = indicator.get('time_period_SMA')
+    time_period_ATR = indicator.get('time_period_ATR')
+    
+    # Check if the "indicator" object was found
+    if indicator is not None:   
+        # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
+        today = datetime.datetime.today().date()
+        last_date_in_df_filtered = df_filtered.index[-1].date()
+        is_today_in_states = today in filtered_states['Date'].values
+        
+        # Determine the recommendation based on the date and conditions
+        if today == last_date_in_df_filtered:
+            recommendation = "buy"
+            if is_today_in_states:
+                recommendation = "sell"
+            else:
+                recommendation = "wait"
         else:
             recommendation = "wait"
+        
+        # Print the recommendation
+        url_post = "http://localhost:3605/BuySell/BuySellOrder"
+        requests.post(url_post, json={"recommendation": recommendation})
+        print(f"Recommendation for {today}: {recommendation}")
+        
+        # Assuming you want to use the recommendation for further processing
+        # You can add additional code here if necessary
+        
     else:
-        recommendation = "wait"
-
-    # ส่งคำแนะนำกลับในรูปแบบ JSON
-    return jsonify({
-        'date': str(today),
-        'recommendation': recommendation
-    })
-
-@app.route('http://localhost:3605/Account/setindicator', methods=['POST'])
-def set_parameters():
-    data = request.get_json()
-    time_period_ATR = data.get('time_period_ATR')
-    time_period_ADX = data.get('time_period_ADX')
-    time_period_RSI = data.get('time_period_RSI')
-    time_period_SMA = data.get('time_period_SMA')
-
-    # print(f"time_period_ATR: {time_period_ATR}")
-    # print(f"time_period_ADX: {time_period_ADX}")
-    # print(f"time_period_RSI: {time_period_RSI}")
-    # print(f"time_period_SMA: {time_period_SMA}")
-    # คุณสามารถใช้ค่าพารามิเตอร์เหล่านี้อัปเดตการคำนวณของคุณ
-    # เช่นอัปเดต time_period_ADX, time_period_RSI, time_period_SMA, time_period_ATR
-
-    return jsonify({'message': 'Parameters set successfully!'})
-
-# รันแอป Flask
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=9090)
+        print("Indicator data not found in the response.")
+else:
+    # Handle request failure
+    print(f"Request failed with status code: {response.status_code}")
+    print(f"Reason: {response.reason}")
