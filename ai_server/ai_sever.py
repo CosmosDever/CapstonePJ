@@ -480,6 +480,7 @@ while True:
                 time_period_RSI = indicator.get('time_period_RSI')
                 time_period_SMA = indicator.get('time_period_SMA')
                 time_period_ATR = indicator.get('time_period_ATR')
+                amount = indicator.get('amount')
                 states = indicator.get('state')
                 
                 # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
@@ -501,7 +502,8 @@ while True:
                 
                 # Define the JSON body for POST request
                 json_body_post = {
-                    "recommendation": recommendation
+                    "recommendation": recommendation,
+                    "amount": amount
                 }
                 
                 # Send a POST request to the "BuySell/BuySellOrder" URL with the recommendation
