@@ -2,6 +2,8 @@ import { client, connectDB } from "../../src/server.mjs";
 import { secret } from "../../src/server.mjs";
 import jwt from "jsonwebtoken";
 import { matchPassword } from "../../lib/PasswordManagement.mjs";
+import { LocalStorage } from "node-localstorage";
+const localStorage = new LocalStorage("./scratch");
 export const signin = async (req, res) => {
   try {
     await connectDB();
@@ -26,6 +28,9 @@ export const signin = async (req, res) => {
     }
     const payload = { findEmail };
     const token = jwt.sign(payload, secret, { expiresIn: "7d" });
+    localStorage.setItem("localtoken", token);
+    const localtoken = localStorage.getItem("localtoken");
+    console.log(localtoken);
     res.cookie("token", token, { httpOnly: true });
     res.status(200).json({ message: "signin success", result: findEmail });
   } catch (error) {
