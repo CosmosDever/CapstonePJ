@@ -482,7 +482,7 @@ while True:
                 time_period_ATR = indicator.get('time_period_ATR')
                 amount = indicator.get('amount')
                 states = indicator.get('state')
-                
+                print(amount)
                 # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
                 today = datetime.datetime.today().date()
                 last_date_in_df_filtered = df_filtered.index[-1].date()
