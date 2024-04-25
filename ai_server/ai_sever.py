@@ -44,6 +44,8 @@ time_period_ADX = 14
 time_period_RSI = 14
 time_period_SMA = 30
 
+
+
 # Create features
 df['EMA12'] = ta.EMA(df['Settle'].values, timeperiod=12)
 df['EMA26'] = ta.EMA(df['Settle'].values, timeperiod=26)
