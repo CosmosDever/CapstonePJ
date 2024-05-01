@@ -119,7 +119,7 @@ def limitcomma(value, limit=2):
         return float("0.0")
 
 y_rgs_train2 = y_rgs_train.copy()  # Create a copy to avoid modifying the original DataFrame
-for i in range(1780):
+for i in range(len(y_rgs_train)):
     y_rgs_train2.iloc[i] = limitcomma(y_rgs_train.iloc[i])
 
 # Find indices of rows with finite values in both X_rgs_train and y_rgs_train2

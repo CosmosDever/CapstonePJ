@@ -47,6 +47,14 @@ def load_data_dt(ticker='BTC-USD'):
     df_dt['Settle'] = (df_dt['High'] + df_dt['Low']) * 100
     return df_dt
 
+def load_data_dt2(ticker='BTC-USD'):
+    start = dt.date(2014, 9, 17)
+    end = dt.date(2019, 6, 5)
+    df_dt = yf.download('BTC-USD', start=start, end=end)
+    df_dt['Settle'] = (df_dt['High'] + df_dt['Low']) * 100
+    return df_dt
+
+
 
 def prepare_features(df_dt):
     # Define the time periods for the indicators
@@ -87,7 +95,7 @@ def prepare_features(df_dt):
     return df_dt
 
 
-def train_decision_tree2(df_dt):
+def train_decision_tree(df_dt):
     predictors_list = ['ATR', 'ADX', 'RSI', 'ClgtEMA12', 'ClgtEMA26', 'MACDSIGgtMACD', 'MA12', 'MA26', 'SMA']
     tmp = df_dt[predictors_list]
     tmp = tmp.fillna(0)
@@ -134,8 +142,10 @@ def train_decision_tree2(df_dt):
           return float("0.0")
 
     y_rgs_train2 = y_rgs_train.copy()  # Create a copy to avoid modifying the original DataFrame
-    for i in range(1780):
-      y_rgs_train2.iloc[i] = limitcomma(y_rgs_train.iloc[i])
+    # for i in range(1780):
+    #   y_rgs_train2.iloc[i] = limitcomma(y_rgs_train.iloc[i])
+    for i in range(len(y_rgs_train)):
+        y_rgs_train2.iloc[i] = limitcomma(y_rgs_train.iloc[i])
 
 # Find indices of rows with finite values in both X_rgs_train and y_rgs_train2
     finite_indices = np.isfinite(X_rgs_train).all(axis=1) & np.isfinite(y_rgs_train2)
@@ -216,6 +226,7 @@ def find_lowest_value(conditions):
 
 # print(load_data_dt())
 # print(prepare_features(load_data_dt()))
-train_dt = train_decision_tree2(prepare_features(load_data_dt()))
+train_dt = train_decision_tree(prepare_features(load_data_dt2()))
 consider = consider_dt(train_dt)
 print(find_lowest_value(consider))
+# print(train_dt)
