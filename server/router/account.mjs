@@ -7,14 +7,16 @@ import { signin } from "../controller/Account/signin.mjs";
 import { signout } from "../controller/Account/signout.mjs";
 import { getindicator } from "../controller/Account/getindicator.mjs";
 import { getuser } from "../controller/Account/getuser.mjs";
+import { change_pw } from "../controller/Account/change_pw.mjs";
 const router = express.Router();
 
 router.post("/setapi", api);
-router.get("/getBalance", fetchBalances);
+router.get("/getbalance", fetchBalances);
 router.post("/setindicator", setindicator);
 router.get("/getindicator", getindicator);
 router.get("/getuser", getuser);
 router.post("/signup", signup);
 router.post("/signin", signin);
 router.post("/signout", signout);
+router.post("/change_pw", change_pw);
 export default router;
