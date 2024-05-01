@@ -103,6 +103,6 @@ is_today_in_states = today in filtered_states['Date'].values
 
 # หากวันนี้อยู่ใน filtered_states แสดงว่าควรขาย ไม่อยู่ในแสดงว่าควรรอขาย
 if is_today_in_states:
-    print("ควรขาย")
+    print("sell")
 else:
-    print("ควรรอขาย")
+    print("wait")

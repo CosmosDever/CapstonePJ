@@ -44,6 +44,8 @@ time_period_ADX = 14
 time_period_RSI = 14
 time_period_SMA = 30
 
+
+
 # Create features
 df['EMA12'] = ta.EMA(df['Settle'].values, timeperiod=12)
 df['EMA26'] = ta.EMA(df['Settle'].values, timeperiod=26)
@@ -432,16 +434,35 @@ sns.despine(offset=10)
 # Define the URLs
 url_get = "http://localhost:3605/Account/getindicator"
 url_post = "http://localhost:3605/BuySell/BuySellOrder"
+url_get_user = "http://localhost:3605/Account/getuser"
 
 # Define the JSON body for GET request
-json_body_get = {
-    "username": "test"
-}
+
 
 while True:
     try:
-        # Send a GET request
-        response = requests.get(url_get, json=json_body_get)
+        response_user = requests.get(url_get_user)
+        
+       
+        if response_user.status_code == 200: 
+            response_user_json = response_user.json()
+            if response_user_json.get('message') == 'not token':
+                print("not token")
+                time.sleep(10)  
+                continue
+                
+            elif response_user_json.get('message') == 'have token':   
+                print("have token") 
+                
+                json_user = {
+                        "username": response_user_json.get('username')
+                    }
+                print(json_user)
+            
+        else:
+            print(f"GET request failed with status code: {response_user.status_code}")
+            print(f"Reason: {response_user.reason}")
+        response = requests.get(url_get, json=json_user)
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
@@ -451,6 +472,7 @@ while True:
             # Extract the "indicator" object
             indicator = response_data.get('accsetting', {}).get('indicator', None)
             
+            
             # Check if the "indicator" object was found
             if indicator:
                 # Extract time periods from the indicator
@@ -458,6 +480,8 @@ while True:
                 time_period_RSI = indicator.get('time_period_RSI')
                 time_period_SMA = indicator.get('time_period_SMA')
                 time_period_ATR = indicator.get('time_period_ATR')
+                amount = indicator.get('amount')
+                states = indicator.get('state')
                 
                 # Assuming you have dataframes `df_filtered` and `filtered_states` defined elsewhere
                 today = datetime.datetime.today().date()
@@ -465,8 +489,9 @@ while True:
                 is_today_in_states = today in filtered_states['Date'].values
                 
                 # Determine the recommendation based on the date and conditions
-                if today == last_date_in_df_filtered:
-                    recommendation = "buy"
+                if states == "activate":
+                    if today == last_date_in_df_filtered:
+                        recommendation = "buy"
                     if is_today_in_states:
                         recommendation = "sell"
                     else:
@@ -474,16 +499,18 @@ while True:
                 else:
                     recommendation = "wait"
                 
+                
                 # Define the JSON body for POST request
                 json_body_post = {
-                    "recommendation": recommendation
+                    "recommendation": recommendation,
+                    "amount": amount
                 }
                 
                 # Send a POST request to the "BuySell/BuySellOrder" URL with the recommendation
                 response_post = requests.post(url_post, json=json_body_post)
 
                 # Check if the request was successful (status code 200)
-                print(f"POST request successful with status code: {response_post.status_code}")
+                print(f"POST request successful with status code: {response_post.status_code} {recommendation}")
             
             else:
                 print("Indicator data not found in the response.")

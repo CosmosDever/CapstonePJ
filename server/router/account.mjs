@@ -6,12 +6,14 @@ import { signup } from "../controller/Account/signup.mjs";
 import { signin } from "../controller/Account/signin.mjs";
 import { signout } from "../controller/Account/signout.mjs";
 import { getindicator } from "../controller/Account/getindicator.mjs";
+import { getuser } from "../controller/Account/getuser.mjs";
 const router = express.Router();
 
 router.post("/setapi", api);
 router.get("/getBalance", fetchBalances);
 router.post("/setindicator", setindicator);
 router.get("/getindicator", getindicator);
+router.get("/getuser", getuser);
 router.post("/signup", signup);
 router.post("/signin", signin);
 router.post("/signout", signout);
