@@ -7,24 +7,15 @@ export const change_pw = async (req, res) => {
     const findEmail = await client
       .db("CapSTData")
       .collection("Account")
-      .findOne({
-        "accuser.email": email,
-      });
+      .findOneAndUpdate(
+        { "accuser.email": email },
+        { $set: { "accuser.password": await hashPassword(password) } }
+      );
     if (!findEmail) {
       res.status(400).json({ message: "email not exist" });
       return false;
     }
-    const updatepw = {
-      accuser: {
-        password: await hashPassword(password),
-      },
-    };
-    await client
-      .db("CapSTData")
-      .collection("Account")
-      .updateOne({ "accuser.email": email }, { $set: updatepw });
     res.status(201).json({ message: "update success" });
-    await client.close();
   } catch (error) {
     console.log("Error", error);
   }
