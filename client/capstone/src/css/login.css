@@ -1,0 +1,60 @@
+body{
+    font-family: "Inter", sans-serif;
+    background: rgb(0,0,0);
+    background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(23,26,30,1) 26%, rgba(37,36,28,1) 63%, rgba(56,50,26,1) 79%, rgba(69,60,25,1) 88%, rgba(85,72,23,1) 95%, rgba(113,93,19,1) 100%);
+    text-align: left;
+    color: white;
+}
+
+
+
+.container{
+    background: rgb(255, 255, 255,0.1);
+    padding: 4rem 3rem;
+    border-radius: 49px;
+    width: 25rem;
+}
+
+h1{
+    font-size: 55px;
+    font-weight: 300;
+    margin: 0  0 30px 0;
+}
+
+label{
+    font-size: 15px;
+    font-weight: 200;
+}
+
+input{
+    width: 100%;
+    padding: 20px 20px;
+    margin: 0  0 2.5rem 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+input[type=text]{
+    border-radius: 19px;
+}
+
+input[type=password]{
+    border-radius: 19px;
+}
+
+input[type=submit]{
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 20px 0;
+    background: #E2B000;
+    font-size: 20px;
+}
+
+p{
+    margin: 0;
+    text-align: center;
+}
+
+a{
+    color: white;
+}
