@@ -36,13 +36,13 @@ input{
     border: none;
 }
 
-input[type=text],input[type=password]{
+.Typeinput{
     border-radius: 19px;
     margin-top: 5px;
     transition: all 0.3s ease;
 }
 
-input[type=text]:focus,input[type=password]:focus{
+.Typeinput:focus{
     outline: none;
   box-shadow: 0 0 0 4px #E2B000
 }

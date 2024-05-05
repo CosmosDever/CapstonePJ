@@ -44,12 +44,12 @@ const Login = () =>{
 
                         <label>
                             Username<br />
-                            <input type="text" id="username" Username="name" onChange={handleChange} required />
+                            <input type="text" id="username" Username="name" className="Typeinput" onChange={handleChange} required />
                         </label><br />
 
                         <label>
                             Password<br />
-                            <input type="password" id="password" Username="name" onChange={handleChange} required />
+                            <input type="password" id="password" Username="name" className="Typeinput" onChange={handleChange} required />
                         </label><br />
 
                         <input type="submit" value="Log in" />
