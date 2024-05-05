@@ -13,6 +13,8 @@ body{
     padding: 4rem 3rem;
     border-radius: 49px;
     width: 25rem;
+    display: flex;
+    flex-direction: column;
 }
 
 h1{
@@ -34,13 +36,17 @@ input{
     border: none;
 }
 
-input[type=text]{
+input[type=text],input[type=password]{
     border-radius: 19px;
+    margin-top: 5px;
+    transition: all 0.3s ease;
 }
 
-input[type=password]{
-    border-radius: 19px;
+input[type=text]:focus,input[type=password]:focus{
+    outline: none;
+  box-shadow: 0 0 0 4px #E2B000
 }
+
 
 input[type=submit]{
     border-radius: 12px;
@@ -50,6 +56,16 @@ input[type=submit]{
     font-size: 20px;
 }
 
+input[type=submit]:hover{
+    background: #775C00;
+    color: #DFDFDF;
+    transition: 0.3s;
+}
+
+input[type=submit]:active{
+    background: #664e00;
+}
+
 p{
     margin: 0;
     text-align: center;
@@ -57,4 +73,13 @@ p{
 
 a{
     color: white;
+}
+
+a:hover{
+    color: #E2B000;
+    transition: 0.2s;
+}
+
+a:active{
+    color:  #775C00;
 }
