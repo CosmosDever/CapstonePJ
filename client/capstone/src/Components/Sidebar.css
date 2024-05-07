@@ -1,0 +1,40 @@
+.sdbar_bg {
+    width: 16vw;
+    height: 100vh;
+    background-color: black;
+    position: absolute;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.sdbar {
+    width: 16vw;
+    max-width: 16vw;
+    height: 100vh;
+    position: absolute;
+    justify-content: center;
+    display: flex;
+}
+
+.text_name {
+    font-size: 30px;
+    color: black;
+    z-index: 1;
+    margin: 200px;
+    color: white;
+}
+
+.acc_balance {
+    font-size: 12px;
+    color: white;
+    margin-top: 50px;
+    display: flex;
+    margin-left: 10px;
+    opacity: 0.75;
+}
+
+.dollar_balance {
+    font-size: 30px;
+    color: #FFC700;
+    margin-top: 20px;
+}
