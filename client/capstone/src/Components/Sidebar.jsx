@@ -13,9 +13,9 @@ function sidebar() {
         <div className='text_name'> Poomthai Promgote </div>
         <div className='acc_balance'> Account Balance</div>
         <div className='dollar_balance'>$100000</div>
-        <div className='chart'>Chart</div>
-        <div className='trade'> Trading </div>
-        <div className='setting'> Setting </div>
+        <Link to ="/"><div className='chart'> Chart</div></Link>
+        <Link to ="/Trading"><div className='trade'> Trading </div></Link>
+        <Link to ="/Setting"><div className='setting'> Setting </div></Link>
       </div>
       <div></div>
     </div>

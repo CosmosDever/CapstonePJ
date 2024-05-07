@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../css/Chart.css";
+import "../css/Setting.css";
 import Sidebar from "../Components/Sidebar";
 
 
