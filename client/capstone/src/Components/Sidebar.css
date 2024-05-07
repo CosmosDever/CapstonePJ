@@ -12,29 +12,50 @@
     max-width: 16vw;
     height: 100vh;
     position: absolute;
-    justify-content: center;
+    align-items: center;
     display: flex;
+    flex-direction: column;
 }
 
 .text_name {
     font-size: 30px;
     color: black;
     z-index: 1;
-    margin: 200px;
     color: white;
+    margin-top: 150px;
 }
 
 .acc_balance {
     font-size: 12px;
     color: white;
-    margin-top: 50px;
     display: flex;
-    margin-left: 10px;
     opacity: 0.75;
+    margin-top: 70px;
 }
 
 .dollar_balance {
     font-size: 30px;
     color: #FFC700;
     margin-top: 20px;
+}
+
+.chart {
+    font-size: 18px;
+    margin-top: 70px;
+    color: white;
+    cursor: pointer;
+}
+
+.trade {
+    font-size: 16px;
+    margin-top: 50px;
+    color: white;
+    cursor: pointer;
+}
+
+.setting {
+    font-size: 18px;
+    margin-top: 50px;
+    color: white;
+    cursor: pointer;
 }
