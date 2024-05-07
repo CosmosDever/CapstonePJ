@@ -1,40 +1,25 @@
 import React, { useState,useEffect } from "react";
-import '../css/login.css'
-import axios from 'axios'
+import '../css/signup.css'
 
-const Login = () =>{
-    const [data, setData] = useState({username: '', password: '',});
+const Register = () =>{
+    const [data, setData] = useState({username: '', pw: '',});
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
 
-    
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     console.log(data)
-    //     axios.post('http://localhost:3605/Account/signin', {
-    //              username: data.username,
-    //              password: data.password,
-    //          })
-    //          .then(Response => console.log(Response))
-    //          .catch(err => console.log(err))
-        
-    // }
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3605/Account/signin', {
+            const response = await axios.post('http://localhost:3009/', {
                 username: data.username,
-                password: data.password,
+                pw: data.pw,
             });
             if (response.data.status === "success") {
                 alert(response.data.success);
-                //navigate('/home');
-                console.log('login success')
+                navigate('/home');
             }
             else {
                 console.log('Login failed. Error:', response.data.error);
@@ -44,32 +29,42 @@ const Login = () =>{
             console.error('Authentication error:', error);
             alert('Authentication failed. Please try again.');
         }
-        setData({ username: '', password: '' });
+        setFormData({ username: '', pw: '' });
     };
+    
 
 
     return(
-        <div className="login">
+        <div className="signup">
             <div className="container">
-                <h1>Login</h1>
+                <h1>Sign Up</h1>
 
                 <div className="input-fields">
                     <form action="" onSubmit={handleSubmit}>
 
                         <label>
                             Username<br />
-                            <input type="text" name="username" className="Typeinput" onChange={handleChange} required />
+                            <input type="text" id="username"  className="Typeinput" onChange={handleChange} required />
                         </label><br />
 
                         <label>
-                            Password<br /> 
-                            <input type="password" name="password"  className="Typeinput" onChange={handleChange} required />
+                            Email<br />
+                            <input type="Email" id="email"className="Typeinput" onChange={handleChange} required />
                         </label><br />
 
+                        <label>
+                            Password<br />
+                            <input type="password" id="password" className="Typeinput" onChange={handleChange} required />
+                        </label><br />
+
+                        <label>
+                            Confirm Password<br />
+                            <input type="password" id="password"  className="Typeinput" onChange={handleChange} required />
+                        </label><br />
 
                         <input type="submit" value="Log in" />
                     </form>
-                    <p>Don't have account? <a href="/">Create account</a></p>  
+                    <p>I already have account <a href="/">Sign in</a></p>  
                     
                 </div>
             </div>
@@ -78,4 +73,4 @@ const Login = () =>{
 }
 
 
-export default Login;
+export default Register;
