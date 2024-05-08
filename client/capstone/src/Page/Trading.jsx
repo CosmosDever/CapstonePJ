@@ -6,16 +6,17 @@ import Sidebar from "../Components/Sidebar";
 
 
 
-function Home() {
-
+function Trading() {
 
     return (
         <> 
         <Sidebar/>
-        <div className="background" ></div>
+        <div className="background" >
+            <div className="Price_box"></div>
+        </div>
         </>
     )
 
 }
 
-export default Home
+export default Trading

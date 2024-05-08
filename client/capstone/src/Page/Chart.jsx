@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/Chart.css";
@@ -6,7 +6,7 @@ import Sidebar from "../Components/Sidebar";
 
 
 
-function Home() {
+function Chart() {
 
 
     return (
@@ -18,4 +18,4 @@ function Home() {
 
 }
 
-export default Home
+export default Chart

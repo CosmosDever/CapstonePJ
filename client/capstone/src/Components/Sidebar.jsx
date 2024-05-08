@@ -2,6 +2,8 @@ import React from 'react'
 import "../css/Sidebar.css"
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
+import { Icon } from '@iconify/react';
+
 
 function sidebar() {
   const [username,setUsername] = useState('') // รับค่า Username จาก back
@@ -13,9 +15,15 @@ function sidebar() {
         <div className='text_name'> Poomthai Promgote </div>
         <div className='acc_balance'> Account Balance</div>
         <div className='dollar_balance'>$100000</div>
-        <Link to ="/"><div className='chart'> Chart</div></Link>
-        <Link to ="/Trading"><div className='trade'> Trading </div></Link>
-        <Link to ="/Setting"><div className='setting'> Setting </div></Link>
+       
+        <Icon className='chart_icon' icon="lets-icons:candlestick" width="30" height="30" />
+        <Link to ="/" className='chart'> Chart</Link>
+        
+        <Icon className='trade_icon' icon="ph:chart-line" width="30" height="30" />
+        <Link to ="/Trading" className='trade'>  Trading </Link>
+        
+        <Icon className='setting_icon' icon="ep:setting" width="25" height="25"  /> 
+        <Link to ="/Setting" className='setting'>Setting  </Link>
       </div>
       <div></div>
     </div>

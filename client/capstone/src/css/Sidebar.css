@@ -44,6 +44,13 @@
     margin-top: 70px;
     color: white;
     cursor: pointer;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart:hover {
+    text-decoration: none;
 }
 
 .trade {
@@ -51,6 +58,7 @@
     margin-top: 50px;
     color: white;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .setting {
@@ -58,4 +66,31 @@
     margin-top: 50px;
     color: white;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit; /* ใช้สีข้อความเดิม */
+}
+
+.chart_icon {
+    color: white;
+    position: absolute;
+    top: 395px;
+    left: 85px;
+}
+
+.trade_icon {
+    color: white;
+    position: absolute;
+    top: 462px;
+    left: 85px;
+}
+
+.setting_icon {
+    color: white;
+    position: absolute;
+    top: 535px;
+    left: 85px;
 }
