@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useState} from "react";
 import '../css/login.css'
 import axios from 'axios'
 
 const Login = () =>{
-    const [data, setData] = useState({username: '', password: '',});
+    const [data, setData] = useState({username: '', password: ''});
 
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
