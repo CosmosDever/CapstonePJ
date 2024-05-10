@@ -13,6 +13,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "node-localstorage": "^3.0.5",
+    "nodemailer": "^6.9.13",
     "raw-body": "^2.5.2",
     "signal-exit": "^4.1.0"
   },
