@@ -17,7 +17,7 @@ export const setindicator = async (req, res) => {
       return res.status(404).send({ error: "Account not found" });
     }
 
-    res.send(updatedAccount);
+    res.send({ massage: "indicator was set" });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: "Internal Server Error" });
