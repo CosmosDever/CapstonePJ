@@ -10,7 +10,7 @@ export const change_pwd = async (req, res) => {
       .collection("Account")
       .findOne({ "accuser.email": email });
     if (!findEmail) {
-      res.status(400).json({ message: "email not exist" });
+      res.status(200).json({ message: "email not exist" });
       return false;
     }
     const updatePassword = await client
@@ -21,7 +21,7 @@ export const change_pwd = async (req, res) => {
         { $set: { "accuser.password": await hashPassword(password) } }
       );
     if (!updatePassword) {
-      res.status(400).json({ message: "password not update" });
+      res.status(200).json({ message: "password not update" });
       return false;
     }
     res.status(201).json({ message: "password update" });

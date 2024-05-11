@@ -19,11 +19,11 @@ export const signup = async (req, res) => {
       });
 
     if (findUsername) {
-      res.status(400).json({ message: "username already exist" });
+      res.status(200).json({ message: "username already exist" });
       return false;
     }
     if (findEmail) {
-      res.status(400).json({ message: "email already exist" });
+      res.status(200).json({ message: "email already exist" });
       return false;
     }
     const createuser = {
@@ -44,9 +44,10 @@ export const signup = async (req, res) => {
       },
     };
     await client.db("CapSTData").collection("Account").insertOne(createuser);
-    res.status(201).json(createuser);
+    res.status(200).json({ message: "signup success", createuser });
     await client.close();
   } catch (error) {
+    res.status(500).json({ message: "something went wrong", error: error });
     console.log("Error", error);
   }
 };

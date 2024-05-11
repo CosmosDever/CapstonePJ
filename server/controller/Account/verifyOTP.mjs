@@ -8,7 +8,7 @@ export const verifyOTP = async (req, res) => {
       .collection("OTP")
       .findOne({ email: email });
     if (!findEmail) {
-      res.status(400).json({ message: "email not exist" });
+      res.status(200).json({ message: "email not exist" });
       return false;
     }
     if (findEmail.otp == otp) {
@@ -17,12 +17,12 @@ export const verifyOTP = async (req, res) => {
         .collection("OTP")
         .deleteOne({ email: email });
       if (!deleteOTP) {
-        res.status(400).json({ message: "otp not send" });
+        res.status(200).json({ message: "otp not send" });
         return false;
       }
-      res.status(201).json({ message: "otp verified" });
+      res.status(200).json({ message: "verify success" });
     } else {
-      res.status(400).json({ message: "otp not match" });
+      res.status(200).json({ message: "otp not match" });
     }
   } catch (error) {
     console.log("Error", error);

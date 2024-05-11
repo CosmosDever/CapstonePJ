@@ -10,7 +10,7 @@ export const send_otp = async (req, res) => {
       .collection("Account")
       .findOne({ "accuser.email": email });
     if (!findEmail) {
-      res.status(400).json({ message: "email not exist" });
+      res.status(200).json({ message: "email not exist" });
       return false;
     }
     const RandomNumber = Math.floor(Math.random() * 900000 + 100000);
@@ -24,7 +24,7 @@ export const send_otp = async (req, res) => {
       );
 
     if (!send_otp) {
-      res.status(400).json({ message: "otp not send" });
+      res.status(200).json({ message: "otp not send" });
       return false;
     }
 

@@ -10,7 +10,7 @@ export const getindicator = async (req, res) => {
       .findOne({ "accuser.username": username });
 
     if (!getAccountindicator) {
-      return res.status(404).send({ error: "Account not found" });
+      return res.status(200).send({ error: "Account not found" });
     }
 
     res.send(getAccountindicator);

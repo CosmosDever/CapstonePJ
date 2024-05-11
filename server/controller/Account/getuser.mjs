@@ -6,7 +6,7 @@ export const getuser = async (req, res) => {
   try {
     const token = localStorage.getItem("localtoken");
     if (!token) {
-      return res.status(400).send({ message: "not token" });
+      return res.status(200).send({ message: "not token" });
     }
     const decode = jwt.verify(token, secret);
     const username = decode.findEmail.accuser.username;

@@ -15,7 +15,7 @@ export const signin = async (req, res) => {
         "accuser.username": username,
       });
     if (!findEmail) {
-      res.status(400).json({ message: "username not found" });
+      res.status(200).json({ message: "username not found" });
       return false;
     }
     const MatchPassword = await matchPassword(
@@ -23,7 +23,7 @@ export const signin = async (req, res) => {
       findEmail.accuser.password
     );
     if (!MatchPassword) {
-      res.status(400).json({ message: "password not match" });
+      res.status(200).json({ message: "password not match" });
       return false;
     }
     const payload = { findEmail };
