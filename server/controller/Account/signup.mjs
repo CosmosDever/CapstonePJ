@@ -11,6 +11,17 @@ export const signup = async (req, res) => {
       .findOne({
         "accuser.email": email,
       });
+    const findUsername = await client
+      .db("CapSTData")
+      .collection("Account")
+      .findOne({
+        "accuser.username": username,
+      });
+
+    if (findUsername) {
+      res.status(400).json({ message: "username already exist" });
+      return false;
+    }
     if (findEmail) {
       res.status(400).json({ message: "email already exist" });
       return false;
