@@ -8,6 +8,8 @@ import { signout } from "../controller/Account/signout.mjs";
 import { getindicator } from "../controller/Account/getindicator.mjs";
 import { getuser } from "../controller/Account/getuser.mjs";
 import { send_otp } from "../controller/Account/send_otp.mjs";
+import { verifyOTP } from "../controller/Account/VerifyOTP.mjs";
+import { change_pwd } from "../controller/Account/change_pwd.mjs";
 const router = express.Router();
 
 router.post("/setapi", api);
@@ -19,4 +21,7 @@ router.post("/signup", signup);
 router.post("/signin", signin);
 router.post("/signout", signout);
 router.post("/send_otp", send_otp);
+router.post("/verifyOTP", verifyOTP);
+router.post("/change_pwd", change_pwd);
+
 export default router;

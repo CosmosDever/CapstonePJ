@@ -1,6 +1,6 @@
 import { client, connectDB } from "../../src/server.mjs";
 import nodemailer from "nodemailer";
-
+import { Config } from "../../lib/Config.mjs";
 export const send_otp = async (req, res) => {
   try {
     const { email } = req.body;
@@ -13,25 +13,37 @@ export const send_otp = async (req, res) => {
       res.status(400).json({ message: "email not exist" });
       return false;
     }
-
     const RandomNumber = Math.floor(Math.random() * 900000 + 100000);
+    const send_otp = await client
+      .db("CapSTData")
+      .collection("OTP")
+      .findOneAndUpdate(
+        { email: email },
+        { $set: { otp: RandomNumber } },
+        { upsert: true }
+      );
+
+    if (!send_otp) {
+      res.status(400).json({ message: "otp not send" });
+      return false;
+    }
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "mahatomahato45@gmail.com",
-        pass: "mahato10097",
+        user: Config.GMAIL,
+        pass: Config.GMAIL_PWD,
       },
     });
     const mailOptions = {
-      from: "mahatomahato45@gmail.com",
-      to: "mahatomahato46@gmail.com",
+      from: Config.GMAIL,
+      to: email,
       subject: "OPT to change password",
       text: "OPT to change password is " + String(RandomNumber),
     };
     await transporter.sendMail(mailOptions);
 
-    res.status(201).json({ message: "update success" });
+    res.status(201).json({ message: "email send" });
   } catch (error) {
     console.log("Error", error);
   }
