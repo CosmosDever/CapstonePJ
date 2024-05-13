@@ -31,8 +31,15 @@ function Setting() {
     const [changeeyesecret, setChangeeyesecret] = useState(false);
     
 
-    const Api_submit =(e)=> {
+    const Api_submit =async(e)=> {
         e.preventDefault()
+        try {
+            const response = await axios.post('http://localhost:3605/Account/setapi', {api_key,secret_key});
+            console.log('api success')
+            // เพิ่มโค้ดเพื่อประมวลผลการตอบกลับจากเซิร์ฟเวอร์ที่คุณต้องการทำต่อไป
+          } catch (error) {
+            console.error('Error posting data: ', error);
+          }
     }
 
     const showandchangepassword1 =(e)=> {
