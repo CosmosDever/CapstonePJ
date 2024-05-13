@@ -6,7 +6,8 @@ import { Icon } from '@iconify/react';
 
 
 function sidebar() {
-  const [username,setUsername] = useState('') // รับค่า Username จาก back
+  const [username,setUsername] = useState('') 
+
 
   return (
     <div>
