@@ -5,7 +5,7 @@ import { Link,Navigate } from "react-router-dom"
 
 
 const Login = () =>{
-    const [formData, setFormdata] = useState({username: '', password: ''});
+    const [formData, setFormdata] = useState({otp: ''});
 
     const handleChange = (e) => {
         setFormdata({ ...formData, [e.target.name]: e.target.value });
@@ -15,8 +15,7 @@ const Login = () =>{
         e.preventDefault();
         
         axios.post('http://localhost:3605/Account/signin', {
-                 username: formData.username,
-                 password: formData.password
+                 otp: formData.otp,
              })
              .then(result => {
                 console.log(result)
@@ -33,34 +32,27 @@ const Login = () =>{
                  alert('Sign in failed');
              });
              
-        setFormdata({ username: '', password: '' });
+        setFormdata({ otp: '' });
     }
     
 
 
     return(
-        <div className="login">
+        <div className="changepassword">
             <div className="container">
-                <h1>Sign in</h1>
+                <h1>Change password</h1>
 
                 <div className="input-fields">
                     <form action="" onSubmit={handleSubmit}>
 
                         <label>
-                            Username<br />
-                            <input type="text" name="username" className="Typeinput" value={formData.username} onChange={handleChange} required />
-                        </label><br />
-
-                        <label>
-                            Password<br /> 
-                            <input type="password" name="password"  className="Typeinput" value={formData.password} onChange={handleChange} required />
+                            OTP<br />
+                            <input type="number" name="otp" className="Typeinput" value={formData.otp} onChange={handleChange} required />
                         </label><br />
 
 
-                        <input type="submit" value="Log in" />
+                        <input type="submit" value="Submit" />
                     </form>
-                    <p>Don't have account? <Link to='/signup'>Create Account</Link></p>  
-                    <p><Link to='/changepassword'>Forget your password?</Link></p>
                     
                 </div>
             </div>

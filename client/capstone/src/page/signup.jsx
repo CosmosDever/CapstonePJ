@@ -66,7 +66,7 @@ const Signup = () =>{
 
                         <input type="submit" value="Create account" />
                     </form>
-                    <p>I already have account <Link to='/login'>Login</Link></p>  
+                    <p>I already have account <Link to='/signin'>Signin</Link></p>  
                     
                 </div>
             </div>
