@@ -19,25 +19,34 @@ function sidebar() {
         console.error('Error fetching data: ', error);
       }
     };
+    const fetchUsername = async () => {
+      try {
+        const response = await axios.get('http://localhost:3605/Account/getuser');
+        setUsername(response.data);
+      } catch (error) {
+        console.error('Error fetching username: ', error);
+      }
+    };
 
     fetchData();
+    fetchUsername();
   }, []);
 
   return (
     <div>
       <div className='sdbar_bg'></div>
       <div className='sdbar'>
-        <div className='text_name'> Poomthai Promgote </div>
+        <div className='text_name'> {username} </div>
         <div className='acc_balance'> Account Balance</div>
         <div className='dollar_balance'>{accountBalance} $ </div>
        
-        <Icon className='chart_icon' icon="lets-icons:candlestick" width="30" height="30" />
+        {/* <Icon className='chart_icon' icon="lets-icons:candlestick" width="30" height="30" /> */}
         <Link to ="/" className='chart'> Chart</Link>
         
-        <Icon className='trade_icon' icon="ph:chart-line" width="30" height="30" />
+        {/* <Icon className='trade_icon' icon="ph:chart-line" width="30" height="30" /> */}
         <Link to ="/Trading" className='trade'>  Trading </Link>
         
-        <Icon className='setting_icon' icon="ep:setting" width="25" height="25"  /> 
+        {/* <Icon className='setting_icon' icon="ep:setting" width="25" height="25"  />  */}
         <Link to ="/Setting" className='setting'>Setting  </Link>
       </div>
       <div></div>

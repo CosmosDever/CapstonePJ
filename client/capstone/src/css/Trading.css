@@ -1,0 +1,340 @@
+.header {
+    display: flex;
+    position: relative;
+}
+
+.price {
+    margin-left: 22%;
+    margin-top: 3.3%;
+}
+
+.price_box {
+    width: 13%;
+    height: 126%;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 25px;
+    display: flex;
+    position: absolute;
+}
+.price_text {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    display: flex;
+    padding: 1%;
+}
+
+.high {
+    margin-left: 15%;
+    margin-top: 3.3%;
+}
+
+.high_box {
+    width: 13%;
+    height: 126%;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 25px;
+    display: flex;
+    position: absolute;
+}
+
+.high_text {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    display: flex;
+    padding: 1%;
+}
+
+.low {
+    margin-left: 15%;
+    margin-top: 3.3%;
+}
+
+.low_box {
+    width: 13%;
+    height: 126%;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 25px;
+    display: flex;
+    position: absolute;
+}
+
+.low_text {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    display: flex;
+    padding: 1%;
+}
+
+.vol {
+    margin-left: 15%;
+    margin-top: 3.3%;
+}
+
+
+.vol_box {
+    width: 13%;
+    height: 126%;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 25px;
+    display: flex;
+    position: absolute;
+}
+
+.vol_text {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    display: flex;
+    padding: 1%;
+}
+
+.hour {
+    margin-left: 15%;
+    margin-top: 3.3%;
+}
+
+
+.hour_box {
+    width: 13%;
+    height: 126%;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 25px;
+    display: flex;
+    position: absolute;
+}
+
+
+.hour_text {
+    position: absolute;
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    display: flex;
+    padding: 1%;
+}
+
+
+.indicator_box {
+    width: 400px;
+    height: 700px;
+    margin-left: 22% ;
+    margin-top: 6%;
+}
+
+.indicator_text {
+    font-size: 25px;
+    color: white;
+}
+
+
+.quantity {
+    margin-top: 5%;
+}
+
+.quantity_text {
+    color: white;
+    margin-left: 3%;
+    margin-top: 4%;
+}
+
+.quantity_box {
+    width: 100%;
+    height: 60px;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+
+.plus_icon {
+    position: absolute;
+    z-index: 1;
+    margin-left: 77%;
+    margin-top: 6%;
+    color: white;
+}
+.plusbox {
+    width: 100%;
+
+    position: relative;
+
+}
+
+.minus_icon {
+    position: absolute;
+    z-index: 1;
+    margin-left: 86%;
+    margin-top: 6%;
+    color: white;
+}
+
+.slider {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 10px; /* Height of the slider */
+    background: #8b8b8b; /* Slider background */
+    border-radius: 10px; /* Rounded corners */
+    outline: none; /* Remove outline */
+    opacity: 1; /* Fully opaque */
+    transition: opacity .2s; /* Smooth transition */
+}
+
+.slider:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+/* Styling for the slider thumb for Webkit browsers (Chrome, Safari, etc.) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Thumb width */
+    height: 10px; /* Thumb height */
+    background: #FFD700; /* Yellow background */
+    border-radius: 35%; /* Fully rounded thumb */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background .2s; /* Smooth transition for background color */
+}
+
+/* Change thumb color on hover for Webkit browsers */
+.slider::-webkit-slider-thumb:hover {
+    background: #FFA500; /* Orange background on hover */
+}
+
+/* Styling for the slider thumb for Firefox */
+.slider::-moz-range-thumb {
+    width: 15px;
+    height:15px;
+    background: #FFD700; /* Yellow background */
+    border-radius: 50%; /* Fully rounded thumb */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background .2s; /* Smooth transition for background color */
+}
+
+/* Change thumb color on hover for Firefox */
+.slider::-moz-range-thumb:hover {
+    background: #FFA500; /* Orange background on hover */
+}
+
+/* Styling for the slider thumb for Internet Explorer */
+.slider::-ms-thumb {
+    width: 25px;
+    height: 25px;
+    background: #FFD700; /* Yellow background */
+    border-radius: 50%; /* Fully rounded thumb */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background .2s; /* Smooth transition for background color */
+}
+
+/* Change thumb color on hover for Internet Explorer */
+.slider::-ms-thumb:hover {
+    background: #FFA500; /* Orange background on hover */
+}
+
+
+.adx_box {
+    width: 100%;
+    height: 60px;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.rsi_box {
+    width: 100%;
+    height: 60px;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.sma_box {
+    width: 100%;
+    height: 60px;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.atr_box {
+    width: 100%;
+    height: 60px;
+    background-color: #FEE585;
+    opacity: 0.3;
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.submit_box {
+    border: none;
+    border-radius: 20px;
+    background-color: #E2B000;
+    color: white;
+    width: 300px;
+    height: 60px;
+    margin-left: 13%;
+    margin-top: 8%;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.history_box {
+    width: 960px;
+    height: 700px;
+    position: absolute;
+    margin-left: 48%;
+    margin-top: 9.5%;
+}
+
+.history_text {
+    font-size: 25px;
+    color: white;
+
+}
+

@@ -29,6 +29,8 @@ function Setting() {
     const [changeeye3, setChangeeye3] = useState(false);
     const [changeeyeapi, setChangeeyeapi] = useState(false);
     const [changeeyesecret, setChangeeyesecret] = useState(false);
+    const [username,setUsername] = useState('') 
+    const [email,setEmail] = useState('')
     
 
     const Api_submit =async(e)=> {
@@ -41,6 +43,29 @@ function Setting() {
             console.error('Error posting data: ', error);
           }
     }
+    useEffect(() => {
+        const fetchUsername = async () => {
+            try {
+            const response = await axios.get('http://localhost:3605/Account/getuser');
+            setUsername(response.data);
+            } catch (error) {
+            console.error('Error fetching username: ', error);
+            }
+        };
+        const fetchEmail = async () => {
+            try {
+            const response = await axios.get('http://localhost:3605/Account/getuser');
+            setUsername(response.data);
+            } catch (error) {
+            console.error('Error fetching email: ', error);
+            }
+        };
+        
+        
+        fetchUsername();
+        fetchEmail();
+    }, []);
+
 
     const showandchangepassword1 =(e)=> {
         setShowPassword1(!showPassword1)
@@ -92,10 +117,10 @@ function Setting() {
         <div className="background" >
             <div className="mail_setting"> E-mail</div>
             <div className="mail_box"></div>
-            <div className="mail_text">aywdgaywgd</div>
+            <div className="mail_text">{email}</div>
             <div className="user_setting"> Username </div>
             <div className="user_box"></div>
-            <div className="user_text">aywdgaywgd</div>
+            <div className="user_text">{username}</div>
             <div className="change_box">
                 <button onClick={() => setapi_popup(true)} className="setapi_button"> Set up your API Key</button>
                 <div className={api_popup?'position_popup':'position_popup closeposition_popup'}>
