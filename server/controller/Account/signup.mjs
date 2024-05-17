@@ -21,7 +21,16 @@ export const signup = async (req, res) => {
         username: username,
         password: await hashPassword(password),
       },
-      accsetting: {},
+      accsetting: {
+        indicator: {
+          ATR: 14,
+          ADX: 14,
+          RSI: 14,
+          SMA: 30,
+          amount: 25,
+          state: "deactivate",
+        },
+      },
     };
     await client.db("CapSTData").collection("Account").insertOne(createuser);
     res.status(201).json(createuser);
