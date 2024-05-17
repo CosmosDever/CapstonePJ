@@ -16,6 +16,7 @@
     border-radius: 25px;
     display: flex;
     position: absolute;
+    z-index: 1;
 }
 .price_text {
     position: absolute;
@@ -329,7 +330,7 @@
     height: 700px;
     position: absolute;
     margin-left: 48%;
-    margin-top: 9.5%;
+    margin-top: 10.5%;
 }
 
 .history_text {
@@ -338,3 +339,43 @@
 
 }
 
+.btc_price {
+    z-index: 2;
+    color: white;
+    margin-top: 2.4%;
+    margin-left: 1%;
+    position: absolute;
+}
+
+
+.btc_high {
+    z-index: 2;
+    color: white;
+    margin-top: 2.4%;
+    margin-left: 1%;
+    position: absolute;
+}
+
+.btc_low {
+    z-index: 2;
+    color: white;
+    margin-top: 2.4%;
+    margin-left: 1%;
+    position: absolute;
+}
+
+.btc_vol {
+    z-index: 2;
+    color: white;
+    margin-top: 2.4%;
+    margin-left: 1%;
+    position: absolute;
+}
+
+.btc_usdt {
+    z-index: 2;
+    color: white;
+    margin-top: 2.4%;
+    margin-left: 1%;
+    position: absolute;
+}

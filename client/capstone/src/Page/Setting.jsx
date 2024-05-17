@@ -48,7 +48,7 @@ function Setting() {
         const fetchUsername = async () => {
             try {
             const response = await axios.get('http://localhost:3605/Account/getuser');
-            setUsername(response.data);
+            setUsername(response.data.username);
             } catch (error) {
             console.error('Error fetching username: ', error);
             }
@@ -56,7 +56,7 @@ function Setting() {
         const fetchEmail = async () => {
             try {
             const response = await axios.get('http://localhost:3605/Account/getuser');
-            setUsername(response.data);
+            setEmail(response.data.email);
             } catch (error) {
             console.error('Error fetching email: ', error);
             }
