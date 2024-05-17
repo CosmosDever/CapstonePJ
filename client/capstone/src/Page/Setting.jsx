@@ -33,39 +33,39 @@ function Setting() {
     const [email,setEmail] = useState('')
     
 
-    const Api_submit =async(e)=> {
-        e.preventDefault()
-        try {
-            const response = await axios.post('http://localhost:3605/Account/setapi', {api_key,secret_key});
-            console.log('setapi success')
-            
-            // เพิ่มโค้ดเพื่อประมวลผลการตอบกลับจากเซิร์ฟเวอร์ที่คุณต้องการทำต่อไป
-          } catch (error) {
-            console.error('Error posting data: ', error);
-          }
-    }
-    useEffect(() => {
-        const fetchUsername = async () => {
-            try {
-            const response = await axios.get('http://localhost:3605/Account/getuser');
-            setUsername(response.data.username);
-            } catch (error) {
-            console.error('Error fetching username: ', error);
-            }
-        };
-        const fetchEmail = async () => {
-            try {
-            const response = await axios.get('http://localhost:3605/Account/getuser');
-            setEmail(response.data.email);
-            } catch (error) {
-            console.error('Error fetching email: ', error);
-            }
-        };
+    // const Api_submit =async(e)=> {
+    //     e.preventDefault()
+    //     try {
+    //         const response = await axios.post('http://localhost:3605/Account/setapi', {api_key,secret_key});
+    //         console.log('setapi success')
+    //         console.log(response.data)
+    //         // เพิ่มโค้ดเพื่อประมวลผลการตอบกลับจากเซิร์ฟเวอร์ที่คุณต้องการทำต่อไป
+    //       } catch (error) {
+    //         console.error('Error posting data: ', error);
+    //       }
+    // }
+    // useEffect(() => {
+    //     const fetchUsername = async () => {
+    //         try {
+    //         const response = await axios.get('http://localhost:3605/Account/getuser');
+    //         setUsername(response.data.username);
+    //         } catch (error) {
+    //         console.error('Error fetching username: ', error);
+    //         }
+    //     };
+    //     const fetchEmail = async () => {
+    //         try {
+    //         const response = await axios.get('http://localhost:3605/Account/getuser');
+    //         setEmail(response.data.email);
+    //         } catch (error) {
+    //         console.error('Error fetching email: ', error);
+    //         }
+    //     };
         
         
-        fetchUsername();
-        fetchEmail();
-    }, []);
+    //     fetchUsername();
+    //     fetchEmail();
+    // }, []);
 
 
     const showandchangepassword1 =(e)=> {

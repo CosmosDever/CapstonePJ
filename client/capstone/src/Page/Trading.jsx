@@ -7,41 +7,65 @@ import { Icon } from '@iconify/react';
 
 
 function Trading() {
-    const [value, setValue] = useState(50);
 
-    const handleSliderChange = (event) => {
-        setValue(event.target.value);
-    };
     const [price,setPrice] = useState('')
     const [btchigh,setBtchigh] = useState('')
     const [btclow,setBtclow] = useState('')
     const [btcvol,setBtcvol] = useState('')
     const [btcusdt,setBtcusdt] = useState('')
-    const [quantity,setQuantity] = useState('')
-    const [adx,setAdx] = useState('')
-    const [rsi,setRsi] = useState('')
-    const [sma,setSma] = useState('')
-    const [atr,setAtr] = useState('')
-    
+    const [quantity,setQuantity] = useState(0)
+    const [adx,setAdx] = useState(0)
+    const [rsi,setRsi] = useState(0)
+    const [sma,setSma] = useState(0)
+    const [atr,setAtr] = useState(0)
+
+    const handleSliderChange = (event) => {
+            setQuantity(event.target.value);
+    };
+
+    const Indicator_submit =async(e)=> {
+        e.preventDefault()
+        try {
+            const response = await axios.post('http://localhost:3605/Account/setindicator', {
+                "username": "test",
+                "indicator" :
+                {
+                    "ATR": atr,
+                    "ADX": adx,
+                    "RSI": rsi,
+                    "SMA": sma,
+                    "amount": quantity,
+                    "state" : "activate"
+                }
+            });
+            console.log('setindicator success')
+            console.log(response.data)
+            // เพิ่มโค้ดเพื่อประมวลผลการตอบกลับจากเซิร์ฟเวอร์ที่คุณต้องการทำต่อไป
+          } catch (error) {
+            console.error('Error posting data: ', error);
+          }
+    }
+
 
     useEffect(() => {
-        const fetchPrice = async () => {
-            try {
-            const response = await axios.get('http://localhost:3605/BuySell/Get24hStatististics');
-            setPrice(response.data.openPrice);
-            setBtchigh(response.data.highPrice);
-            setBtclow(response.data.lowPrice);
-            setBtcvol(response.data.volumeBTC);
-            setBtcusdt(response.data.volumeUSDT);
+        // const fetchPrice = async () => {
+        //     try {
+        //     const response = await axios.get('http://localhost:3605/BuySell/Get24hStatististics');
+        //     setPrice(response.data.openPrice);
+        //     setBtchigh(response.data.highPrice);
+        //     setBtclow(response.data.lowPrice);
+        //     setBtcvol(response.data.volumeBTC);
+        //     setBtcusdt(response.data.volumeUSDT);
             
-            } catch (error) {
-            console.error('Error fetching Price: ', error);
-            }
-        };
+        //     } catch (error) {
+        //     console.error('Error fetching Price: ', error);
+        //     }
+        // };
 
         const fetchIndicator = async () => {
             try {
-                const response = await axios.get('http://localhost:3605/Account/getindicator');
+                const response = await axios.get('http://localhost:3605/Account/getindicator',{"username": "test"});
+                console.log(response)
                 setQuantity(response.data.amount);
                 setAdx(response.data.ADX);
                 setRsi(response.data.RSI);
@@ -54,9 +78,11 @@ function Trading() {
         }
         
         
-        fetchPrice();
+        // fetchPrice();
         fetchIndicator();
     }, []);
+
+
 
     return (
         <> 
@@ -89,19 +115,19 @@ function Trading() {
                     <div className="btc_usdt">${btcusdt}</div>
                 </div>
             </div>
-            <div className="indicator_box">
+            <form onSubmit={(e)=>Indicator_submit(e)} className="indicator_box">
                 <div className="indicator_text">Indicator</div>
                 <div className="quantity">
                     <div className="quantity_text">Quantity</div>
                     <div className="plusbox">
                         <Icon className="plus_icon" icon="mdi:plus" width="32" height="32" />
                         <Icon className="minus_icon" icon="ic:baseline-minus" width="32" height="32" />
-                        <input className="quantity_box" value={quantity}/>
+                        <input className="quantity_box" type="number" value={quantity} onChange={(e)=>(setQuantity(e.target.value))}/>
                         <input
                             type="range"
                             min="0"
                             max="100"
-                            value={value}
+                            value={quantity}
                             onChange={handleSliderChange}
                             className="slider"
                         />
@@ -111,28 +137,28 @@ function Trading() {
                 <div className="plusbox">
                         <Icon className="plus_icon" icon="mdi:plus" width="32" height="32" />
                         <Icon className="minus_icon" icon="ic:baseline-minus" width="32" height="32" />
-                        <input className="adx_box" value={adx}/>
+                        <input className="adx_box" type="number" value={adx} onChange={(e)=>(setAdx(e.target.value))}/>
                 </div>
                 <div className="quantity_text">RSI</div>
                 <div className="plusbox">
                         <Icon className="plus_icon" icon="mdi:plus" width="32" height="32" />
                         <Icon className="minus_icon" icon="ic:baseline-minus" width="32" height="32" />
-                        <input className="rsi_box" value={rsi}/>
+                        <input className="rsi_box" type="number" value={rsi} onChange={(e)=>(setRsi(e.target.value))}/>
                 </div>
                 <div className="quantity_text">SMA</div>
                 <div className="plusbox">
                         <Icon className="plus_icon" icon="mdi:plus" width="32" height="32" />
                         <Icon className="minus_icon" icon="ic:baseline-minus" width="32" height="32" />
-                        <input className="sma_box" value={sma}/>
+                        <input className="sma_box" type="number" value={sma} onChange={(e)=>(setSma(e.target.value))}/>
                 </div>        
                 <div className="quantity_text">ATR</div>
                 <div className="plusbox">
                         <Icon className="plus_icon" icon="mdi:plus" width="32" height="32" />
                         <Icon className="minus_icon" icon="ic:baseline-minus" width="32" height="32" />
-                        <input className="atr_box"value={atr}/>
+                        <input className="atr_box" type="number" value={atr} onChange={(e)=>(setAtr(e.target.value))}/>
                 </div>
-                <button className="submit_box">Submit</button>
-            </div>
+                <button type="submit" className="submit_box">Submit</button>
+            </form>
 
             <div className="history_box">
                 <div className="history_text">Transection History</div>

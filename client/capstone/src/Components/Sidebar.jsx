@@ -10,27 +10,27 @@ function sidebar() {
   const [username,setUsername] = useState('') 
   const [accountBalance,setAccountBalance] = useState('')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3605/Account/getBalance');
-        setAccountBalance(response.data);
-      } catch (error) {
-        console.error('Error fetching data: ', error);
-      }
-    };
-    const fetchUsername = async () => {
-      try {
-        const response = await axios.get('http://localhost:3605/Account/getuser');
-        setUsername(response.data);
-      } catch (error) {
-        console.error('Error fetching username: ', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3605/Account/getBalance');
+  //       setAccountBalance(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data: ', error);
+  //     }
+  //   };
+  //   const fetchUsername = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3605/Account/getuser');
+  //       setUsername(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching username: ', error);
+  //     }
+  //   };
 
-    fetchData();
-    fetchUsername();
-  }, []);
+  //   fetchData();
+  //   fetchUsername();
+  // }, []);
 
   return (
     <div>
