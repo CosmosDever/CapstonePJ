@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { secret } from "../src/server.mjs";
+
 export const checkToken = async (req, res) => {
   try {
     const token = req.cookies.token;
