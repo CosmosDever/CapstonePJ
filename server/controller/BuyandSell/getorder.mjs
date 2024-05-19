@@ -10,7 +10,7 @@ export const getorder = async (req, res) => {
       api_secret: localStorage.getItem("API_SECRET"),
     });
 
-    const order = await client.getHistoricalTrades({ symbol: "BTCUSDT" });
+    const order = await client.getAllOrders({ symbol: "BTCUSDT" });
 
     console.log(order);
 

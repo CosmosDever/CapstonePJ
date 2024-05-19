@@ -13,7 +13,7 @@
     height: 126%;
     background-color: #FEE585;
     opacity: 0.3;
-    border-radius: 25px;
+    border-radius: 15px;
     display: flex;
     position: absolute;
     z-index: 1;
@@ -37,7 +37,7 @@
     height: 126%;
     background-color: #FEE585;
     opacity: 0.3;
-    border-radius: 25px;
+    border-radius: 15px;
     display: flex;
     position: absolute;
 }
@@ -61,7 +61,7 @@
     height: 126%;
     background-color: #FEE585;
     opacity: 0.3;
-    border-radius: 25px;
+    border-radius: 15px;
     display: flex;
     position: absolute;
 }
@@ -86,7 +86,7 @@
     height: 126%;
     background-color: #FEE585;
     opacity: 0.3;
-    border-radius: 25px;
+    border-radius: 15px;
     display: flex;
     position: absolute;
 }
@@ -111,7 +111,7 @@
     height: 126%;
     background-color: #FEE585;
     opacity: 0.3;
-    border-radius: 25px;
+    border-radius: 15px;
     display: flex;
     position: absolute;
 }
@@ -326,11 +326,29 @@
 }
 
 .history_box {
-    width: 960px;
+    width: 900px;
     height: 700px;
     position: absolute;
     margin-left: 48%;
-    margin-top: 10.5%;
+    margin-top: 9.5%;
+}
+.container_his {
+    width: 900px;
+    height: 500px;
+    overflow-y: auto;
+}
+.container_his::-webkit-scrollbar {
+    background: none;
+    border-radius: 10px;
+    width: 10px;
+    height: 10px;
+}
+
+.container_his::-webkit-scrollbar-thumb {
+    background: none; 
+    background-color: #E2B000;
+    border-radius: 10px;
+
 }
 
 .history_text {
@@ -379,3 +397,19 @@
     margin-left: 1%;
     position: absolute;
 }
+
+
+.header_history {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-top: 20px;
+}
+
+.order_item {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-top: 20px;
+}
+

@@ -4,6 +4,7 @@ import axios from "axios";
 import "../css/Setting.css";
 import Sidebar from "../Components/Sidebar";
 import { Icon } from '@iconify/react';
+import { axiosinstant } from "../lib/axiosinstant";
 
 
 
@@ -33,39 +34,45 @@ function Setting() {
     const [email,setEmail] = useState('')
     
 
-    // const Api_submit =async(e)=> {
-    //     e.preventDefault()
-    //     try {
-    //         const response = await axios.post('http://localhost:3605/Account/setapi', {api_key,secret_key});
-    //         console.log('setapi success')
-    //         console.log(response.data)
-    //         // เพิ่มโค้ดเพื่อประมวลผลการตอบกลับจากเซิร์ฟเวอร์ที่คุณต้องการทำต่อไป
-    //       } catch (error) {
-    //         console.error('Error posting data: ', error);
-    //       }
-    // }
-    // useEffect(() => {
-    //     const fetchUsername = async () => {
-    //         try {
-    //         const response = await axios.get('http://localhost:3605/Account/getuser');
-    //         setUsername(response.data.username);
-    //         } catch (error) {
-    //         console.error('Error fetching username: ', error);
-    //         }
-    //     };
-    //     const fetchEmail = async () => {
-    //         try {
-    //         const response = await axios.get('http://localhost:3605/Account/getuser');
-    //         setEmail(response.data.email);
-    //         } catch (error) {
-    //         console.error('Error fetching email: ', error);
-    //         }
-    //     };
-        
-        
-    //     fetchUsername();
-    //     fetchEmail();
-    // }, []);
+    const Api_submit =async(e)=> {
+        e.preventDefault()
+        try {
+            const response = await axiosinstant.post('Account/setapi', {
+                API_KEY: api_key,
+                API_SECRET: secret_key});
+            console.log('setapi success')
+            console.log(response)
+            // เพิ่มโค้ดเพื่อประมวลผลการตอบกลับจากเซิร์ฟเวอร์ที่คุณต้องการทำต่อไป
+          } catch (error) {
+            console.error('Error posting data: ', error);
+          }
+    }
+
+    const changepass =async(e)=> {
+        e.preventDefault()
+        try {
+            const response = await axiosinstant.post('Account/change_pw', {api_key,secret_key});
+            console.log('Change password success')
+            console.log(response.data)
+            // เพิ่มโค้ดเพื่อประมวลผลการตอบกลับจากเซิร์ฟเวอร์ที่คุณต้องการทำต่อไป
+          } catch (error) {
+            console.error('Error posting data: ', error);
+          }
+    }
+
+    useEffect(() => {
+        const fetchUsername = async () => {
+            try {
+            const response = await axiosinstant.get('checkToken');
+            console.log(response.data.token.findEmail.accuser.username)
+            setUsername(response.data.token.findEmail.accuser.username);
+            setEmail(response.data.email);
+            } catch (error) {
+            console.error('Error fetching username: ', error);
+            }
+        };
+        fetchUsername();
+    }, []);
 
 
     const showandchangepassword1 =(e)=> {
