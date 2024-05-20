@@ -2,6 +2,7 @@ import React, { useState} from "react";
 import '../css/login.css'
 import axios from 'axios'
 import { Link,Navigate } from "react-router-dom"
+import { axiosInstance } from "../lib/axiosInsance";
 
 
 const Login = () =>{
@@ -14,7 +15,7 @@ const Login = () =>{
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        axios.post('http://localhost:3605/Account/signin', {
+        axiosInstance.post('Account/signin', {
                  username: formData.username,
                  password: formData.password
              })
@@ -25,12 +26,17 @@ const Login = () =>{
                 }
                 else {
                     console.log('Login failed. Error:', result.data.error);
-                    alert('Incorrect username or password. Please try again.');
+                    alert('Incorrect username or password Please try again.');
                 }
              })
              .catch(err => {
                  console.log(err);
-                 alert('Sign in failed');
+                 if(err.response.status === 400){
+                    alert(err.response.data.message)
+                }
+                else{
+                    alert("Sign in failed Please try again")
+                }
              });
              
         setFormdata({ username: '', password: '' });
