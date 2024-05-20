@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import '../css/signup.css'
-import axios from 'axios'
+import { axiosInstance } from "../lib/axiosInsance";
 import { Link,Navigate } from "react-router-dom"
 
 const Signup = () =>{
@@ -20,19 +20,31 @@ const Signup = () =>{
             setData({ username: '',email: '', password: '',Cpassword:'' })
             return;
             }
-        
-        axios.post('http://localhost:3605/Account/signup', {
-                 username: data.username,
-                 email: data.email,
-                 password: data.password
-             })
-             .then(Response => console.log(Response))
-             alert('Sign up successed')
-             Navigate('/')
-             .catch(err => console.log(err))
-             alert('Sign up failed')
+
+        try{
+            const response = await axiosInstance.post('Account/signup',{
+                username:data.username,
+                email: data.email,
+                password:data.password
+            })
+
+            .then(Response => console.log(Response))
+            .then((result) => {console.log(result)})
+            
+            alert("sign in success")
+        }
+        catch (error) {
+            console.error(error)
+            if(error.response.status === 400){
+                alert(error.response.data.message)
+            }
+            else{
+                alert("Registration failed. Please try again")
+            }
+        }
+
              
-             setData({ username: '',email: '', password: '',Cpassword:'' })
+        setData({ username: '',email: '', password: '',Cpassword:'' })
     }
 
 
