@@ -6,6 +6,7 @@ export const checkToken = async (req, res) => {
     const token = req.cookies.token;
     if (!token) {
       return res.status(400).json({ message: "not token" });
+      
     }
     const decode = jwt.verify(token, secret);
     res.status(200).send({ message: "have token", token: decode });

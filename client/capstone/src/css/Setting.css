@@ -1,0 +1,430 @@
+body {
+    overflow: hidden;
+}
+.mail_setting {
+    font-size:20px;
+    margin-left: 31.5%;
+    color: white;
+    margin-top: 240px;
+}
+
+.user_setting {
+    font-size: 20px;
+    margin-left: 31%;
+    color: white;
+    margin-top: 30px;
+}
+
+.mail_box {
+    border: 2px solid #958750;
+    border-radius: 20px;
+    width: 52%;
+    height: 60px;
+    background-color: #958750;
+    margin-top: 10px;
+    margin-left: 30%;
+    opacity: 0.7;
+    display: flex;
+
+}
+
+.mail_text {
+    width: 1000px;
+    height: 60px;
+    margin-top: 292px;
+    margin-left: 31.5%;
+    position: absolute;
+    font-size: 20px;
+    color: white;
+}
+
+.user_box {
+    border: 2px solid #958750;
+    border-radius: 20px;
+    width: 52%;
+    height: 60px;
+    background-color: #958750;
+    margin-top: 10px;
+    margin-left: 30%;
+    opacity: 0.7;
+}
+
+.user_text {
+    width: 1000px;
+    height: 60px;
+    margin-top: 415px;
+    margin-left: 31.5%;
+    position: absolute;
+    font-size: 20px;
+    color: white;
+}
+
+.change_box {
+    display: flex;
+    justify-content: start;
+}
+
+.setapi_button {
+    background-color: #E2B000;
+    width: 300px;
+    height: 60px;
+    margin-left: 30%;
+    border-radius: 20px;
+    margin-top: 40px;
+    border: 1px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.setapi_button:hover {
+    box-shadow: rgba(226, 176, 0, 0.2) 0px 5px 12px;
+}
+
+.changepass_button {
+    background-color: #E2B000;
+    width: 300px;
+    height: 60px;
+    border-radius: 20px;
+    margin-top: 40px;
+    margin-left: 30px;
+    border: 1px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.changepass_button {
+    box-shadow: rgba(226, 176, 0, 0.2) 0px 5px 12px;
+}
+
+.startapi_popup {
+    width: 1300px;
+    height: 700px;
+    background-color: #4A483E;
+    border-radius: 20px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.position_popup {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 320px;
+    transform: translateX(0px);
+    transition-duration: 500ms;
+    visibility: visible;
+}
+
+.closeposition_popup {
+    transform: translateX(1500px);
+    visibility: hidden;
+}
+
+.close_icon {
+    color: white;
+    position: absolute;
+    right: 0;
+    margin-top: 20px;
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+.textapi {
+    color: white;
+    font-size: 20px;
+    margin-top: 3%;
+    margin-left: 15%;
+}
+
+.inputapi_key {
+    border: none ;
+    border-radius: 20px;
+    width: 1000px;
+    height: 60px;
+    background-color: white;
+    margin-left: 13%;
+    margin-top: 15px;
+    outline: none;
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.textsecret {
+    color: white;
+    font-size: 20px;
+    margin-left: 15%;
+    margin-top: 30px;
+}
+
+.inputsecret_key {
+    border: 2px ;
+    border-radius: 20px;
+    width: 1000px;
+    height: 60px;
+    background-color: white;
+    margin-left: 13%;
+    margin-top: 15px;
+    outline: none;
+    padding-left: 20px;
+    font-size: 20px; 
+}
+
+.icon_api {
+    color: white;
+    margin-left: 45%;
+    margin-top: 8%;
+}
+
+.submit_button {
+    border: none;
+    border-radius: 20px;
+    background-color: #E2B000;
+    color: white;
+    width: 300px;
+    height: 60px;
+    margin-left: 36%;
+    margin-top: 50px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.startchangepass_popup {
+    width: 1300px;
+    height: 800px;
+    background-color: #4A483E;
+    border-radius: 20px;
+    position: relative;
+}
+
+
+.textchangepass {
+    color: white;
+    font-size: 20px;
+    margin-top: 3%;
+    margin-left: 15%;
+}
+
+.icon_password {
+    color: white;
+    margin-left: 45%;
+    margin-top: 6%;
+}
+
+.input_oldpassword {
+    border: 2px ;
+    border-radius: 20px;
+    width: 1000px;
+    height: 60px;
+    background-color: white;
+    margin-left: 13%;
+    margin-top: 15px;
+    outline: none;
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.textnewpass {
+    color: white;
+    font-size: 20px;
+    margin-left: 15%;
+    margin-top: 30px;
+}
+
+.input_newpassword {
+    border: 2px ;
+    border-radius: 20px;
+    width: 1000px;
+    height: 60px;
+    background-color: white;
+    margin-left: 13%;
+    margin-top: 15px;
+    outline: none;
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.showpass {
+    position: absolute;
+    right: 13%;
+    top: 32px;
+    cursor: pointer;
+}
+
+.shownewpass {
+    position: absolute;
+    right: 13%;
+    top: 32px;
+    cursor: pointer;
+}
+
+.showconfirmpass {
+    position: absolute;
+    right: 13%;
+    top: 32px;
+    cursor: pointer;
+}
+
+.green_box {
+    position: absolute;
+    margin-left: 33%;
+    margin-top: 15px;
+    display: flex;
+
+}
+.green_text {
+    color: white;
+}
+
+.green_status {
+    padding-top: 4px;
+}
+
+
+@media screen and (max-width: 1200px){
+    .change_box {
+        display: flex;
+        flex-direction: column;
+    }
+    .changepass_button {
+        background-color: #E2B000;
+        width: 25%;
+        height: 60px;
+        border-radius: 20px;
+        margin-top: 40px;
+        margin-left: 30%;
+        border: 1px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .setapi_button {
+        background-color: #E2B000;
+        width: 25%;
+        height: 60px;
+        margin-left: 30%;
+        border-radius: 20px;
+        margin-top: 40px;
+        border: 1px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .startapi_popup,.startchangepass_popup {
+        width: 100%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -40%;
+    }
+    .inputapi_key,.input_newpassword,.input_oldpassword {
+        border: none ;
+        border-radius: 20px;
+        width: 80%;
+        height: 60px;
+        background-color: white;
+        margin-left: 13%;
+        margin-top: 15px;
+        outline: none;
+        padding-left: 20px;
+        font-size: 20px;
+    }
+    .inputsecret_key,.input_newpassword,.input_oldpassword {
+        border: 2px ;
+        border-radius: 20px;
+        width: 80%;
+        height: 60px;
+        background-color: white;
+        margin-left: 13%;
+        margin-top: 15px;
+        outline: none;
+        padding-left: 20px;
+        font-size: 20px; 
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .setapi_button {
+        background-color: #E2B000;
+        width: 40%;
+        height: 60px;
+        margin-left: 30%;
+        border-radius: 20px;
+        margin-top: 40px;
+        border: 1px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .changepass_button {
+        background-color: #E2B000;
+        width: 40%;
+        height: 60px;
+        border-radius: 20px;
+        margin-top: 40px;
+        margin-left: 30%;
+        border: 1px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .submit_button {
+        border: none;
+        border-radius: 20px;
+        background-color: #E2B000;
+        color: white;
+        width: 40%;
+        height: 60px;
+        margin-left: 30%;
+        margin-top: 50px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+}
+@media screen and (max-width: 770px){
+    .startapi_popup,.startchangepass_popup {
+        width: 160%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -50%;
+    }
+}
+@media screen and (max-width: 600px){
+    .startapi_popup,.startchangepass_popup {
+        width: 500%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -300px;
+    }
+}
+@media screen and (max-width: 431px){
+    .startapi_popup,.startchangepass_popup {
+        width: 500%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -300px;
+    }
+}
