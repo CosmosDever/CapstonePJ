@@ -5,12 +5,16 @@ import { axiosInstance } from "../lib/axiosinstance";
 export default function SignIn() {
   useEffect(() => {
     async function checkToken() {
-      await axiosInstance.get("/checkToken").then((response) => {
-        console.log(response.data);
-        if (response.data.message === "have token") {
-          window.location.href = "/home";
-        }
-      });
+      try {
+        await axiosInstance.get("/checkToken").then((response) => {
+          console.log(response.data);
+          if (response.data.message === "have token") {
+            window.location.href = "/home";
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
     checkToken();
   });
@@ -20,21 +24,25 @@ export default function SignIn() {
     password: "",
   });
   const handleSubmit = (e) => {
-    e.preventDefault();
-    axiosInstance
-      .post("Account/signin", {
-        username: signinfrom.username,
-        password: signinfrom.password,
-      })
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.message === "signin success") {
-          window.location.href = "/home";
-        }
-        if (response.data.message !== "signin success") {
-          alert(response.data.message);
-        }
-      });
+    try {
+      e.preventDefault();
+      axiosInstance
+        .post("Account/signin", {
+          username: signinfrom.username,
+          password: signinfrom.password,
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.message === "signin success") {
+            window.location.href = "/home";
+          }
+          if (response.data.message !== "signin success") {
+            alert(response.data.message);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <main className="bg-gradient-to-br from-[#171A1E] from-35%  to-[#776212] to-100% w-screen h-screen flex content-center items-center justify-center ">

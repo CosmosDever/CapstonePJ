@@ -40,6 +40,6 @@ export const signin = async (req, res) => {
     res.status(200).json({ message: "signin success", result: token });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    res.status(200).json({ message: "something went wrong" });
   }
 };
