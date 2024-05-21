@@ -4,8 +4,8 @@ const localStorage = new LocalStorage("./scratch");
 export const fetchBalances = async (req, res) => {
   try {
     if (
-      localStorage.getItem("API_KEY") === null ||
-      localStorage.getItem("API_SECRET") === null
+      localStorage.getItem("API_KEY") === "" ||
+      localStorage.getItem("API_SECRET") === ""
     ) {
       res.send("Please set API_KEY and API_SECRET");
       return false;
