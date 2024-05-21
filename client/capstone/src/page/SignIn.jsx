@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 
 export default function SignIn() {
+  useEffect(() => {
+    async function checkToken() {
+      await axiosInstance.get("/checkToken").then((response) => {
+        console.log(response.data);
+        if (response.data.message === "have token") {
+          window.location.href = "/home";
+        }
+      });
+    }
+    checkToken();
+  });
+
   const [signinfrom, setSigninform] = useState({
     username: "",
     password: "",

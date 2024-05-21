@@ -26,13 +26,18 @@ export const signin = async (req, res) => {
       res.status(200).json({ message: "password not match" });
       return false;
     }
-    const payload = { findEmail };
+    const ctoken = {
+      ID: findEmail._id,
+      username: findEmail.accuser.username,
+      accsetting: findEmail.accsetting,
+    };
+    const payload = { ctoken };
     const token = jwt.sign(payload, secret, { expiresIn: "7d" });
     localStorage.setItem("localtoken", token);
     const localtoken = localStorage.getItem("localtoken");
-    console.log(localtoken);
+    console.log(token);
     res.cookie("token", token, { httpOnly: true });
-    res.status(200).json({ message: "signin success", result: findEmail });
+    res.status(200).json({ message: "signin success", result: token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "something went wrong" });

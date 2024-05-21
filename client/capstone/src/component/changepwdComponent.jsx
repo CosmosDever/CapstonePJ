@@ -24,7 +24,7 @@ export default function Changepwd() {
       .then((response) => {
         console.log(response.data);
         if (response.data.message === "password update") {
-          window.location.href = "/home";
+          window.location.href = "/";
         }
         if (response.data.message !== "password changed") {
           alert(response.data.message);
@@ -73,7 +73,7 @@ export default function Changepwd() {
           type="submit"
           className="bg-[#E2B000] font-bold py-2 px-4 rounded"
         >
-          Send OTP
+          Submit
         </button>
       </form>
     </div>
