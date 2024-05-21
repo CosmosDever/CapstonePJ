@@ -1,0 +1,90 @@
+body{
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+    background: rgb(0,0,0);
+    background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(23,26,30,1) 49%, rgba(53,49,26,1) 70%, rgba(68,60,25,1) 80%, rgba(82,70,23,1) 89%, rgba(102,85,20,1) 96%, rgba(113,93,19,1) 100%);
+    text-align: left;
+    color: white;
+}
+
+
+
+.container{
+    background: rgb(255, 255, 255,0.1);
+    padding: 4rem 3rem;
+    border-radius: 49px;
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    font-size: 55px;
+    font-weight: 300;
+    margin: 0  0 30px 0;
+}
+
+label{
+    font-size: 15px;
+    font-weight: 200;
+}
+
+input{
+    width: 100%;
+    padding: 20px 20px;
+    margin: 0  0 2.5rem 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+.Typeinput{
+    border-radius: 19px;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+}
+
+.Typeinput:focus{
+    outline: none;
+  box-shadow: 0 0 0 4px #E2B000
+}
+
+
+input[type=submit]{
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 20px 0;
+    background: #E2B000;
+    font-size: 20px;
+}
+
+input[type=submit]:hover{
+    background: #775C00;
+    color: #DFDFDF;
+    transition: 0.3s;
+}
+
+input[type=submit]:active{
+    background: #664e00;
+}
+
+p{
+    margin: 0;
+    text-align: center;
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    color: #E2B000;
+    transition: 0.2s;
+}
+
+a:active{
+    color:  #775C00;
+}
