@@ -1,0 +1,520 @@
+.box_container {
+    margin-left: 22%;
+    overflow: auto;
+}
+
+
+
+.header {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-top: 40px;
+    max-width: 1350px;
+    height: auto;
+    gap: 25px;
+}
+
+
+.price {
+    width: 250px;
+    height: 80px;
+}
+
+.price_box {
+    width: 250px;
+    height: 80px;
+    background-color: rgba(212, 198, 118, 0.5);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+.price_text {
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    padding: 6%;
+}
+
+.high {
+    width: 250px;
+    height: 80px;
+}
+
+.high_box {
+    width: 250px;
+    height: 80px;
+    background-color: rgba(212, 198, 118, 0.5);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.high_text {
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    padding: 6%;
+}
+
+.low {
+    width: 250px;
+    height: 80px;
+}
+
+.low_box {
+    width: 250px;
+    height: 80px;
+    background-color: rgba(212, 198, 118, 0.5);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.low_text {
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    padding: 6%;
+}
+
+.vol {
+    width: 250px;
+    height: 80px;
+}
+
+
+.vol_box {
+    width: 250px;
+    height: 80px;
+    background-color: rgba(212, 198, 118, 0.5);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.vol_text {
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    padding: 6%;
+}
+
+.hour {
+    width: 250px;
+    height: 80px;
+}
+
+
+.hour_box {
+    width: 250px;
+    height: 80px;
+    background-color: rgba(212, 198, 118, 0.5);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+
+.hour_text {
+    font-size: 14px;
+    color: white;
+    opacity: 0.7;
+    padding: 6%;
+}
+
+
+.indicator_box {
+    width: auto;
+    max-width: 400px;
+    height: 700px;
+}
+
+.indicator_text {
+    font-size: 25px;
+    color: white;
+}
+
+
+.quantity {
+    margin-top: 5%;
+}
+
+.quantity_text {
+    color: white;
+    margin-left: 3%;
+    margin-top: 4%;
+}
+
+.quantity_box {
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    background-color:rgba(212, 198, 118, 0.5);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+
+.plus_icon {
+    position: absolute;
+    z-index: 1;
+    margin-left: 77%;
+    margin-top: 6%;
+    color: white;
+}
+.plusbox {
+    width: 100%;
+
+    position: relative;
+
+}
+
+.minus_icon {
+    position: absolute;
+    z-index: 1;
+    margin-left: 86%;
+    margin-top: 6%;
+    color: white;
+}
+
+.slider {
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 10px; /* Height of the slider */
+    background: #8b8b8b; /* Slider background */
+    border-radius: 10px; /* Rounded corners */
+    outline: none; /* Remove outline */
+    opacity: 1; /* Fully opaque */
+    transition: opacity .2s; /* Smooth transition */
+}
+
+.slider:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+/* Styling for the slider thumb for Webkit browsers (Chrome, Safari, etc.) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Thumb width */
+    height: 10px; /* Thumb height */
+    background: #FFD700; /* Yellow background */
+    border-radius: 35%; /* Fully rounded thumb */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background .2s; /* Smooth transition for background color */
+}
+
+/* Change thumb color on hover for Webkit browsers */
+.slider::-webkit-slider-thumb:hover {
+    background: #FFA500; /* Orange background on hover */
+}
+
+/* Styling for the slider thumb for Firefox */
+.slider::-moz-range-thumb {
+    width: 15px;
+    height:15px;
+    background: #FFD700; /* Yellow background */
+    border-radius: 50%; /* Fully rounded thumb */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background .2s; /* Smooth transition for background color */
+}
+
+/* Change thumb color on hover for Firefox */
+.slider::-moz-range-thumb:hover {
+    background: #FFA500; /* Orange background on hover */
+}
+
+/* Styling for the slider thumb for Internet Explorer */
+.slider::-ms-thumb {
+    width: 25px;
+    height: 25px;
+    background: #FFD700; /* Yellow background */
+    border-radius: 50%; /* Fully rounded thumb */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background .2s; /* Smooth transition for background color */
+}
+
+/* Change thumb color on hover for Internet Explorer */
+.slider::-ms-thumb:hover {
+    background: #FFA500; /* Orange background on hover */
+}
+
+
+.adx_box {
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    background-color:rgba(212, 198, 118, 0.5);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.rsi_box {
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    background-color:rgba(212, 198, 118, 0.5);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.sma_box {
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    background-color:rgba(212, 198, 118, 0.5);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.atr_box {
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    background-color:rgba(212, 198, 118, 0.5);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    margin-top: 3%;
+    padding-left: 5%;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    z-index: 0;
+}
+
+.submit_box {
+    border: none;
+    border-radius: 20px;
+    background-color: #E2B000;
+    color: white;
+    width: 300px;
+    height: 60px;
+    margin-top: 8%;
+    margin-left: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.container_trade {
+    display: flex;
+    margin-top: 50px;
+}
+
+.history_box {
+    width: 900px;
+    height: 700px;
+    margin-left: 6.5% ;
+
+}
+.container_his {
+    width: 900px;
+    height: 500px;
+    overflow-y: auto;
+}
+.container_his::-webkit-scrollbar {
+    background: none;
+    border-radius: 10px;
+    width: 10px;
+    height: 10px;
+}
+
+.container_his::-webkit-scrollbar-thumb {
+    background: none; 
+    background-color: #E2B000;
+    border-radius: 10px;
+
+}
+
+.history_text {
+    font-size: 25px;
+    color: white;
+
+}
+
+.btc_price {
+    z-index: 2;
+    color: white;
+    padding-left: 6%;
+}
+
+
+.btc_high {
+    z-index: 2;
+    color: white;
+    padding-left: 6%;
+}
+
+.btc_low {
+    z-index: 2;
+    color: white;
+    padding-left: 6%;
+}
+
+.btc_vol {
+    z-index: 2;
+    color: white;
+    padding-left: 6%;
+}
+
+.btc_usdt {
+    z-index: 2;
+    color: white;
+    padding-left: 6%;
+}
+/* .buy_text {
+    padding-left: 20px;
+}
+.amount_text{
+    padding-right: 60px;
+} */
+.header_history {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-top: 20px;
+    gap: 70px;
+}
+
+.order_item {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 1700px){
+    .price,.high,.low,.vol,.hour {
+        width: 200px;
+        gap: 10px;
+    }
+    .price_box,.high_box,.low_box,.vol_box,.hour_box {
+        width: 200px;
+        height: 80px;
+        background-color: rgba(212, 198, 118, 0.5);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+    }
+}
+
+@media screen and (max-width: 1655px){
+    .container_trade {
+        display: flex;
+        margin-top: 50px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    .history_box {
+        width: 900px;
+        height: 700px;
+        margin-left: 0;
+    
+    }
+    .price_box,.high_box,.low_box,.vol_box,.hour_box {
+        width: 200px;
+        height: 80px;
+        background-color: rgba(212, 198, 118, 0.5);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+    }
+    .price,.high,.low,.vol,.hour {
+        width: 200px;
+        gap: 10px;
+    }
+    /* .quantity_box,.rsi_box,.adx_box,.atr_box,.sma_box {
+        width: 1035px;
+        max-width: 1400px;
+        height: 60px;
+        background-color:rgba(212, 198, 118, 0.5);
+        color: rgba(255, 255, 255, 1);
+        border-radius: 20px;
+        margin-top: 3%;
+        padding-left: 5%;
+        outline: none;
+        border: none;
+        font-size: 16px;
+        position: relative;
+        z-index: 0;
+    }
+    .plus_icon {
+        position: absolute;
+        z-index: 1;
+        margin-left: 950px;
+        margin-top: 6%;
+        color: white;
+    }
+    .plusbox {
+        width: 100%;
+        position: relative;
+    
+    }
+    .minus_icon {
+        position: absolute;
+        z-index: 1;
+        margin-left: 990px;
+        margin-top: 6%;
+        color: white;
+    }
+     */
+}
+
+@media screen and (max-width: 1450px){
+    .price_box,.high_box,.low_box,.vol_box,.hour_box {
+        width: 190px;
+        height: 80px;
+        background-color: rgba(212, 198, 118, 0.5);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+    }
+    .price,.high,.low,.vol,.hour {
+        width: 190px;
+        gap: 10px;
+    }
+}
+@media screen and (max-width: 1100px){
+    .box_container {
+        margin-left: 15%;
+    }
+}
+

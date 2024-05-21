@@ -6,6 +6,11 @@ import Changepasswordemail from './page/cpw_email'
 import Changepasswordotp from './page/cpw_verifyOTP'
 import ChangepasswordNewpassword from './page/cpw_newpw'
 import './App.css'
+import { useState } from 'react'
+import Chart from './Page/Chart'
+import './index.css'
+import Sidebar from "./Components/Sidebar";
+
 
 function App() {
 
@@ -20,6 +25,11 @@ function App() {
         <Route path='/changepassword/newpassword' element={<ChangepasswordNewpassword/>}/>
     </Routes>
     </BrowserRouter>
+    <>
+      <Sidebar/>
+      <Chart/>
+
+    </>
   )
 }
 
