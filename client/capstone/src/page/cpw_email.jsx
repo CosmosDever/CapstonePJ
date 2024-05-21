@@ -1,5 +1,6 @@
 import React, { useState} from "react";
 import '../css/login.css'
+import { axiosInstance } from "../lib/axiosInsance";
 import axios from 'axios'
 import { Link,Navigate } from "react-router-dom"
 
@@ -14,23 +15,25 @@ const Login = () =>{
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        axios.post('http://localhost:3605/Account/signin', {
-                 email: formData.email,
-             })
-             .then(result => {
-                console.log(result)
-                if (result.data.message === 'signin success') {
-                    alert('Sign in successed')
-                }
-                else {
-                    console.log('Login failed. Error:', result.data.error);
-                    alert('Incorrect username or password. Please try again.');
-                }
-             })
-             .catch(err => {
-                 console.log(err);
-                 alert('Sign in failed');
-             });
+        try{
+            const response = await axiosInstance.post('Account/send_otp', {
+                email: formData.email,
+            })
+            .then(Response => console.log(Response))
+            .then((result) => {console.log(result)})
+            alert("send OPT success")
+            
+        }
+
+        catch (error) {
+            console.error(error)
+            if(error.response.status === 400){
+                alert(error.response.data.message)
+            }
+            else{
+                alert("Registration failed. Please try again")
+            }
+        }
              
         setFormdata({ email: ''});
     }

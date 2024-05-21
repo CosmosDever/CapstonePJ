@@ -2,6 +2,7 @@ import React, { useState} from "react";
 import '../css/login.css'
 import axios from 'axios'
 import { Link,Navigate } from "react-router-dom"
+import { axiosInstance } from "../lib/axiosInsance";
 
 
 const Login = () =>{
@@ -14,23 +15,25 @@ const Login = () =>{
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        axios.post('http://localhost:3605/Account/signin', {
-                 otp: formData.otp,
-             })
-             .then(result => {
-                console.log(result)
-                if (result.data.message === 'signin success') {
-                    alert('Sign in successed')
-                }
-                else {
-                    console.log('Login failed. Error:', result.data.error);
-                    alert('Incorrect username or password. Please try again.');
-                }
-             })
-             .catch(err => {
-                 console.log(err);
-                 alert('Sign in failed');
-             });
+        try{
+            const response = await axiosInstance.post('Account/verifyOTP', {
+                otp: formData.otp,
+            })
+            .then(Response => console.log(Response))
+            .then((result) => {console.log(result)})
+            alert("otp verified")
+            
+        }
+
+        catch (error) {
+            console.error(error)
+            if(error.response.status === 400){
+                alert(error.response.data.message)
+            }
+            else{
+                alert("Registration failed. Please try again")
+            }
+        }
              
         setFormdata({ otp: '' });
     }
@@ -46,9 +49,14 @@ const Login = () =>{
                     <form action="" onSubmit={handleSubmit}>
 
                         <label>
+                            Email<br />
+                            <input type="email" name="email" value={data.email} className="Typeinput" onChange={handleChange} required />
+                        </label><br />
+                        <label>
                             OTP<br />
                             <input type="number" name="otp" className="Typeinput" value={formData.otp} onChange={handleChange} required />
                         </label><br />
+                        
 
 
                         <input type="submit" value="Submit" />
