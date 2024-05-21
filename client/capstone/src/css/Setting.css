@@ -1,7 +1,6 @@
 body {
     overflow: hidden;
 }
-
 .mail_setting {
     font-size:20px;
     margin-left: 31.5%;
@@ -19,7 +18,7 @@ body {
 .mail_box {
     border: 2px solid #958750;
     border-radius: 20px;
-    width: 1000px;
+    width: 52%;
     height: 60px;
     background-color: #958750;
     margin-top: 10px;
@@ -42,7 +41,7 @@ body {
 .user_box {
     border: 2px solid #958750;
     border-radius: 20px;
-    width: 1000px;
+    width: 52%;
     height: 60px;
     background-color: #958750;
     margin-top: 10px;
@@ -254,21 +253,178 @@ body {
 
 .showpass {
     position: absolute;
-    right: 150px;
+    right: 13%;
     top: 32px;
     cursor: pointer;
 }
 
 .shownewpass {
     position: absolute;
-    right: 150px;
+    right: 13%;
     top: 32px;
     cursor: pointer;
 }
 
 .showconfirmpass {
     position: absolute;
-    right: 150px;
+    right: 13%;
     top: 32px;
     cursor: pointer;
+}
+
+.green_box {
+    position: absolute;
+    margin-left: 33%;
+    margin-top: 15px;
+    display: flex;
+
+}
+.green_text {
+    color: white;
+}
+
+.green_status {
+    padding-top: 4px;
+}
+
+
+@media screen and (max-width: 1200px){
+    .change_box {
+        display: flex;
+        flex-direction: column;
+    }
+    .changepass_button {
+        background-color: #E2B000;
+        width: 25%;
+        height: 60px;
+        border-radius: 20px;
+        margin-top: 40px;
+        margin-left: 30%;
+        border: 1px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .setapi_button {
+        background-color: #E2B000;
+        width: 25%;
+        height: 60px;
+        margin-left: 30%;
+        border-radius: 20px;
+        margin-top: 40px;
+        border: 1px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .startapi_popup,.startchangepass_popup {
+        width: 100%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -40%;
+    }
+    .inputapi_key,.input_newpassword,.input_oldpassword {
+        border: none ;
+        border-radius: 20px;
+        width: 80%;
+        height: 60px;
+        background-color: white;
+        margin-left: 13%;
+        margin-top: 15px;
+        outline: none;
+        padding-left: 20px;
+        font-size: 20px;
+    }
+    .inputsecret_key,.input_newpassword,.input_oldpassword {
+        border: 2px ;
+        border-radius: 20px;
+        width: 80%;
+        height: 60px;
+        background-color: white;
+        margin-left: 13%;
+        margin-top: 15px;
+        outline: none;
+        padding-left: 20px;
+        font-size: 20px; 
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .setapi_button {
+        background-color: #E2B000;
+        width: 40%;
+        height: 60px;
+        margin-left: 30%;
+        border-radius: 20px;
+        margin-top: 40px;
+        border: 1px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .changepass_button {
+        background-color: #E2B000;
+        width: 40%;
+        height: 60px;
+        border-radius: 20px;
+        margin-top: 40px;
+        margin-left: 30%;
+        border: 1px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .submit_button {
+        border: none;
+        border-radius: 20px;
+        background-color: #E2B000;
+        color: white;
+        width: 40%;
+        height: 60px;
+        margin-left: 30%;
+        margin-top: 50px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+}
+@media screen and (max-width: 770px){
+    .startapi_popup,.startchangepass_popup {
+        width: 160%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -50%;
+    }
+}
+@media screen and (max-width: 600px){
+    .startapi_popup,.startchangepass_popup {
+        width: 500%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -300px;
+    }
+}
+@media screen and (max-width: 431px){
+    .startapi_popup,.startchangepass_popup {
+        width: 500%;
+        height: 800px;
+        background-color: #4A483E;
+        border-radius: 20px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-left: -300px;
+    }
 }

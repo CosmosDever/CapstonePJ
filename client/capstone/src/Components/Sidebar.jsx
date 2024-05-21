@@ -14,36 +14,54 @@ function sidebar() {
   const isChartPath = location.pathname === '/';
   const isTradePath = location.pathname === '/Trading';
   const isSettingPath = location.pathname === '/Setting';
+  const [statesd,setStatesd] = useState(false)
+  const [showsdbar,setShowsdbar] = useState({})
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location]);
+  useEffect(() => {
+    if (statesd){
+      setShowsdbar({
+        transform: 'translateX(0%)'
+      })
+    }
+    else {
+      setShowsdbar({})
+    }
+  }, [statesd]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axiosinstant.get('Account/getBalance');
-        setAccountBalance(response.data.usdt);
+        setAccountBalance(Number(response.data.usdt).toFixed(2));
       } catch (error) {
         console.error('Error fetching data: ', error);
       }
     };
-    // const fetchUsername = async () => {
-    //   try {
-    //     const response = await axiosinstant.get('checkToken');
-    //     setUsername(response.data.username);
-    //   } catch (error) {
-    //     console.error('Error fetching username: ', error);
-    //   }
-    // };
-
+    const fetchUsername = async () => {
+      try {
+        const response = await axiosinstant.get('checkToken');
+        setUsername(response.data.username);
+      } catch (error) {
+        console.error('Error fetching username: ', error);
+      }
+    };
     fetchData();
-    // fetchUsername();
+    fetchUsername();
   }, []);
 
   return (
     <div>
-      <div className='sdbar_bg'></div>
-      <div className='sdbar'>
+      <div className='sdbar_bg' style={showsdbar}></div>
+      <div className='sdbar' style={showsdbar}>
+        <div onClick={() => setStatesd(prevState => !prevState)} className='arrow'>
+        {statesd ? (
+          <Icon icon="iconamoon:arrow-left-2-light" width="48" height="48" />
+        ) : (
+          <Icon icon="iconamoon:arrow-right-2-light" width="48" height="48" />
+        )}
+        </div>
         <div className='text_name'> {username} </div>
         <div className='acc_balance'> Account Balance</div>
         <div className='dollar_balance'>{accountBalance} $ </div>
@@ -72,8 +90,9 @@ function sidebar() {
             <div className='tag_yellow'></div>
           </div>
         </div>
+        <div className='logout'>Log out</div>
       </div>
-      <div></div>
+      
     </div>
   )
 }
