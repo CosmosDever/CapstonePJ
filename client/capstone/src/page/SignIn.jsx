@@ -9,7 +9,7 @@ export default function SignIn() {
         await axiosInstance.get("/checkToken").then((response) => {
           console.log(response.data);
           if (response.data.message === "have token") {
-            window.location.href = "/home";
+            window.location.href = "/chart";
           }
         });
       } catch (error) {
@@ -34,7 +34,7 @@ export default function SignIn() {
         .then((response) => {
           console.log(response.data);
           if (response.data.message === "signin success") {
-            window.location.href = "/home";
+            window.location.href = "/chart";
           }
           if (response.data.message !== "signin success") {
             alert(response.data.message);
@@ -81,7 +81,7 @@ export default function SignIn() {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-6/12 h-10 bg-[#E2B000] rounded-2xl "
+                className="w-6/12 h-10 bg-[#E2B000] rounded-2xl hover:scale-110   hover:text-white"
               >
                 Sign In
               </button>

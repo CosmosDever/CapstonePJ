@@ -476,10 +476,10 @@ while True:
             # Check if the "indicator" object was found
             if indicator:
                 # Extract time periods from the indicator
-                time_period_ADX = indicator.get('time_period_ADX')
-                time_period_RSI = indicator.get('time_period_RSI')
-                time_period_SMA = indicator.get('time_period_SMA')
-                time_period_ATR = indicator.get('time_period_ATR')
+                time_period_ADX = indicator.get('ADX')
+                time_period_RSI = indicator.get('RSI')
+                time_period_SMA = indicator.get('SMA')
+                time_period_ATR = indicator.get('ATR')
                 amount = indicator.get('amount')
                 states = indicator.get('state')
                 

@@ -29,6 +29,7 @@ export const signin = async (req, res) => {
     const ctoken = {
       ID: findEmail._id,
       username: findEmail.accuser.username,
+      email: findEmail.accuser.email,
       accsetting: findEmail.accsetting,
     };
     const payload = { ctoken };

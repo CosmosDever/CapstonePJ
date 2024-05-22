@@ -1,15 +1,27 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 import { Route, Routes } from "react-router-dom";
-import { Tabs, Placeholder } from "rsuite";
-import Chart from "../component/chart";
-import "rsuite/dist/rsuite.min.css";
-export default function Home() {
+
+export default function Sidebar() {
   const [userfrom, setUserfrom] = useState({
     username: "",
-    accbalance: 0,
   });
+  const [accountbalance, setAccountbalance] = useState({
+    balance: "Please set api in setting",
+  });
+  const handleSignout = () => {
+    try {
+      axiosInstance.post("Account/signout").then((response) => {
+        console.log(response.data);
+        if (response.data.message === "signout success") {
+          window.location.href = "/";
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     async function checkToken() {
       try {
@@ -17,32 +29,58 @@ export default function Home() {
           console.log(response.data.token.ctoken.username);
 
           if (response.data.message !== "have token") {
-            window.location.href = "/";
+            window.location.href = "/signin";
           }
           setUserfrom({
             username: response.data.token.ctoken.username,
-            accbalance: 0,
           });
         });
       } catch (error) {
         console.log(error);
       }
     }
+
+    async function getBalance() {
+      try {
+        await axiosInstance
+          .get("Account/getBalance")
+          .then((response) => {
+            console.log(response.data);
+            if (response.data.massege === "success") {
+              setAccountbalance({
+                balance: response.data.usdt,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getBalance();
     checkToken();
-  });
+  }, []);
 
   return (
-    <main className="bg-gradient-to-br from-[#776212] from-0% via-[#171A1E] via-40% to-[#100F4A] to-99% w-screen h-screen flex  items-center justify-between ">
+    <>
       <div className="h-full text-white bg-black bg-opacity-10  w-1/5 flex flex-col  items-center justify-center ">
         <div className="gap-10 flex flex-col items-center justify-center">
           <div className="text-3xl text-white">{userfrom.username}</div>
           <div className="flex flex-col  items-center justify-center text-lg text-white text-opacity-75">
             Account Balance
-            <div className="text-3xl text-[#FFC700]">{userfrom.accbalance}</div>
+            <div className="text-2xl text-[#FFC700]">
+              {accountbalance.balance}$
+            </div>
           </div>
         </div>
         <div className="w-full">
-          <button className="text-3xl flex items-center justify-center  w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]">
+          <button
+            className="text-3xl flex items-center justify-center  w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]"
+            onClick={() => (window.location.href = "/Chart")}
+          >
             <span>
               <svg
                 width="24px"
@@ -62,7 +100,10 @@ export default function Home() {
             </span>
             Chart
           </button>
-          <button className="text-3xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]">
+          <button
+            className="text-3xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]"
+            onClick={() => (window.location.href = "/Trading")}
+          >
             <span>
               <svg
                 fill="#ffffff"
@@ -116,7 +157,10 @@ export default function Home() {
             </span>
             Trading
           </button>
-          <button className="text-3xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]">
+          <button
+            className="text-3xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]   "
+            onClick={() => (window.location.href = "/Setting")}
+          >
             <span>
               <svg
                 width="24px"
@@ -145,9 +189,30 @@ export default function Home() {
             </span>
             Setting
           </button>
+          <button
+            className="mt-16 text-xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]   "
+            onClick={() => handleSignout()}
+          >
+            <span>
+              <svg
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                fill="#ffffff"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M21.593 10.943c.584.585.584 1.53 0 2.116L18.71 15.95c-.39.39-1.03.39-1.42 0a.996.996 0 0 1 0-1.41 9.552 9.552 0 0 1 1.689-1.345l.387-.242-.207-.206a10 10 0 0 1-2.24.254H8.998a1 1 0 1 1 0-2h7.921a10 10 0 0 1 2.24.254l.207-.206-.386-.241a9.562 9.562 0 0 1-1.69-1.348.996.996 0 0 1 0-1.41c.39-.39 1.03-.39 1.42 0l2.883 2.893zM14 16a1 1 0 0 0-1 1v1.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1.505a1 1 0 1 0 2 0V5.5A2.5 2.5 0 0 0 12.5 3h-7A2.5 2.5 0 0 0 3 5.5v13A2.5 2.5 0 0 0 5.5 21h7a2.5 2.5 0 0 0 2.5-2.5V17a1 1 0 0 0-1-1z"
+                  fill="#ffffff"
+                />
+              </svg>
+            </span>
+            Sign Out
+          </button>
         </div>
       </div>
-      <Chart />
-    </main>
+    </>
   );
 }
