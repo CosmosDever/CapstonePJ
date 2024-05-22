@@ -8,7 +8,7 @@ import ChangepasswordNewpassword from "./Page/cpw_newpw";
 import Trading from "./Page/Trading";
 import "./App.css";
 import Chart from "./Page/Chart";
-import Setting from "./Page/setting";
+import Setting from "./Page/Setting";
 import "./index.css";
 
 function App() {
