@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 import Sidebar from "../component/sidebar";
-import "rsuite/dist/rsuite.min.css";
+import { Slider, RangeSlider, Row, Col, InputGroup, InputNumber } from "rsuite";
 
 export default function Chart() {
   const [tokenValid, setTokenValid] = useState(true);
@@ -32,8 +32,10 @@ export default function Chart() {
       symbol: "BITSTAMP:BTCUSD",
       interval: "D",
       timezone: "Asia/Bangkok",
+      backgroundColor: "#171A1E",
+
       theme: "dark",
-      style: "1",
+      style: "3",
       locale: "en",
       allow_symbol_change: true,
       calendar: false,

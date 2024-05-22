@@ -9,6 +9,8 @@ export default function Sidebar() {
   const [accountbalance, setAccountbalance] = useState({
     balance: "Please set api in setting",
   });
+  const [loading, setLoading] = useState(true); // Add loading state
+
   const handleSignout = () => {
     try {
       axiosInstance.post("Account/signout").then((response) => {
@@ -60,9 +62,23 @@ export default function Sidebar() {
       }
     }
 
-    getBalance();
-    checkToken();
+    async function fetchData() {
+      setLoading(true); // Set loading to true before fetching data
+      await checkToken();
+      await getBalance();
+      setLoading(false); // Set loading to false after data is fetched
+    }
+
+    fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="h-full w-1/5 flex items-center justify-center bg-black bg-opacity-10">
+        <div className="text-white text-2xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>
