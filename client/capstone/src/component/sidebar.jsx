@@ -74,7 +74,7 @@ export default function Sidebar() {
 
   if (loading) {
     return (
-      <div className="h-full w-1/5 flex items-center justify-center bg-black bg-opacity-10">
+      <div className="h-full w-2/5 md:w-1/5 flex items-center justify-center bg-black bg-opacity-10">
         <div className="text-white text-2xl">Loading...</div>
       </div>
     );
@@ -82,19 +82,19 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="h-full text-white bg-black bg-opacity-10  w-1/5 flex flex-col  items-center justify-center ">
+      <div className="h-full text-white bg-black bg-opacity-10  w-2/5 md:w-1/5 flex flex-col  items-center justify-center ">
         <div className="gap-10 flex flex-col items-center justify-center">
-          <div className="text-3xl text-white">{userfrom.username}</div>
+          <div className="text-2xl text-white">{userfrom.username}</div>
           <div className="flex flex-col  items-center justify-center text-lg text-white text-opacity-75">
             Account Balance
-            <div className="text-2xl text-[#FFC700]">
+            <div className="text-lg text-[#FFC700] text-center">
               {accountbalance.balance}$
             </div>
           </div>
         </div>
         <div className="w-full">
           <button
-            className="text-3xl flex items-center justify-center  w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]"
+            className="text-2xl flex items-center justify-center  w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]"
             onClick={() => (window.location.href = "/Chart")}
           >
             <span>
@@ -117,7 +117,7 @@ export default function Sidebar() {
             Chart
           </button>
           <button
-            className="text-3xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]"
+            className="text-2xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]"
             onClick={() => (window.location.href = "/Trading")}
           >
             <span>
@@ -174,7 +174,7 @@ export default function Sidebar() {
             Trading
           </button>
           <button
-            className="text-3xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]   "
+            className="text-2xl flex items-center justify-center w-full gap-2 p-5 hover:bg-[#D9D9D9] hover:bg-opacity-10 hover:border-l-4 hover:border-[#FFC700]   "
             onClick={() => (window.location.href = "/Setting")}
           >
             <span>

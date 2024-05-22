@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 import Sidebar from "../component/sidebar";
 import { Slider } from "rsuite";
+
 export default function Trading() {
   const [userfrom, setUserfrom] = useState({
     username: "",
@@ -15,14 +16,15 @@ export default function Trading() {
     volumeUSD: 0,
   });
   const [indicator, setIndicator] = useState({
-    ATR: 14,
-    ADX: 14,
-    RSI: 14,
-    SMA: 25,
-    amount: 25,
-    state: "deactivate",
+    ATR: 0,
+    ADX: 0,
+    RSI: 0,
+    SMA: 0,
+    amount: 0,
+    state: "",
   });
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [transaction, setTransaction] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function checkToken() {
@@ -40,6 +42,7 @@ export default function Trading() {
     }
     checkToken();
   }, []);
+
   const Indicator_submit = async (e) => {
     e.preventDefault();
     try {
@@ -51,15 +54,17 @@ export default function Trading() {
           RSI: indicator.RSI,
           SMA: indicator.SMA,
           amount: indicator.amount,
-          state: indicator.state,
+          state: "activate",
         },
       });
+      setIndicator((prev) => ({ ...prev, state: "activate" }));
       console.log("setindicator success");
       console.log(response.data);
     } catch (error) {
       console.error("Error posting data: ", error);
     }
   };
+
   const Indicator_deactivate = async (e) => {
     e.preventDefault();
     try {
@@ -74,6 +79,7 @@ export default function Trading() {
           state: "deactivate",
         },
       });
+      setIndicator((prev) => ({ ...prev, state: "deactivate" }));
       console.log("setindicator success");
       console.log(response.data);
     } catch (error) {
@@ -115,11 +121,21 @@ export default function Trading() {
         console.log(error);
       }
     }
+    async function getTransaction() {
+      try {
+        const response = await axiosInstance.get("BuySell/GetOrder");
+        setTransaction(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     async function fetchData() {
       setLoading(true);
       await getIndicator();
       await getPrice();
+      await getTransaction();
       setLoading(false);
     }
 
@@ -144,66 +160,76 @@ export default function Trading() {
     <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex items-center justify-between">
       <Sidebar />
       <div className="flex-1 flex w-full h-full items-center justify-center">
-        <div className="w-11/12 h-5/6 flex-col flex bg-white bg-opacity-15">
-          <div className="w-full h-1/5 flex flex-row items-center justify-between bg-white bg-opacity-10">
+        <div className="w-11/12 h-5/6 flex-col flex ">
+          <div className="w-full h-1/5 flex flex-row  items-center justify-between ">
             <div
               id="Price"
-              className="w-1/6 h-3/5 flex rounded-2xl flex-col ml-5 justify-start bg-black bg-opacity-10 text-white"
+              className="ml-5 w-1/6 h-3/5 flex rounded-2xl content-center items-center justify-start bg-black bg-opacity-10 text-white"
             >
-              <div className="p-5">
+              <div className="p-5 text-[10px] lg:text-xl ">
                 <div>Price</div>
-                <div className="text-xl">{pricedata.openPrice}$</div>
+                <div className="text-[10px] lg:text-xl">
+                  {pricedata.openPrice}$
+                </div>
               </div>
             </div>
             <div
               id="highPrice"
               className="w-1/6 h-3/5 flex rounded-2xl content-center items-center justify-start bg-black bg-opacity-10 text-white"
             >
-              <div className="p-5">
+              <div className="p-5 text-[10px] lg:text-xl">
                 <div>24 High</div>
-                <div className="text-xl">{pricedata.highPrice}$</div>
+                <div className="text-[10px] lg:text-xl">
+                  {pricedata.highPrice}$
+                </div>
               </div>
             </div>
             <div
               id="lowPrice"
               className="w-1/6 h-3/5 flex rounded-2xl content-center items-center justify-start bg-black bg-opacity-10 text-white"
             >
-              <div className="p-5">
+              <div className="p-5 text-[10px] lg:text-xl">
                 <div>24 Low</div>
-                <div className="text-xl">{pricedata.lowPrice}$</div>
+                <div className="text-[10px] lg:text-xl">
+                  {pricedata.lowPrice}$
+                </div>
               </div>
             </div>
             <div
               id="volumeBTC"
               className="w-1/6 h-3/5 flex rounded-2xl content-center items-center justify-start bg-black bg-opacity-10 text-white"
             >
-              <div className="p-5">
+              <div className="p-5 text-[10px] lg:text-lg">
                 <div>Volume BTC</div>
-                <div className="text-xl">{pricedata.volumeBTC} BTC</div>
+                <div className="text-[10px] lg:text-lg">
+                  {pricedata.volumeBTC} BTC
+                </div>
               </div>
             </div>
             <div
               id="priceChangePercent"
               className="w-1/6 h-3/5 flex rounded-2xl content-center mr-5 items-center justify-start bg-black bg-opacity-10 text-white"
             >
-              <div className="p-5">
+              <div className="p-5 text-[10px] lg:text-lg">
                 <div>Change Percent</div>
-                <div className="text-xl">{pricedata.priceChangePercent}%</div>
+                <div className=" text-[10px] lg:text-lg">
+                  {pricedata.priceChangePercent}%
+                </div>
               </div>
             </div>
           </div>
-          <div className="w-full h-4/5 flex flex-row justify-between">
+          <div className="w-full h-full flex flex-row justify-between">
             <div
               id="indicator"
-              className="w-5/12 h-full flex flex-col rounded-2xl  justify-start bg-black bg-opacity-10 text-white"
+              className="w-5/12 h-full flex flex-col rounded-2xl justify-start bg-black bg-opacity-10 text-white"
             >
               <div className="p-5">
                 <div className="text-2xl">Indicator</div>
                 <form
                   onSubmit={
                     indicator.state === "activate"
-                      ? Indicator_deactivate()
-                      : Indicator_submit()
+                      ? Indicator_deactivate
+                      : Indicator_submit
                   }
                 >
                   <div className="flex flex-col">
@@ -217,7 +243,7 @@ export default function Trading() {
                         min={0}
                         max="100"
                         value={indicator.amount}
-                        className="range range-xs [--range-shdw:#D1AD1F]  "
+                        className="range range-xs [--range-shdw:#D1AD1F]"
                         step="5"
                         id="Quantity"
                         name="Quantity"
@@ -316,34 +342,16 @@ export default function Trading() {
                     <div className="flex flex-row w-full">
                       {indicator.state === "activate" ? (
                         <div className="flex items-center justify-center w-full ">
-                          <button
-                            className="w-3/5 pt-5"
-                            type="submit"
-                            onClick={() =>
-                              setIndicator({
-                                ...indicator,
-                                state: "deactivate",
-                              })
-                            }
-                          >
-                            <div className="bg-red-500 hover:bg-red-600  rounded-2xl h-11 text-xl flex items-center justify-center">
+                          <button className="w-3/5 pt-5" type="submit">
+                            <div className="bg-red-500 hover:bg-red-600 rounded-2xl h-11 text-xl flex items-center justify-center">
                               Deactivate
                             </div>
                           </button>
                         </div>
                       ) : (
                         <div className="flex items-center justify-center w-full ">
-                          <button
-                            className="w-3/5 pt-5"
-                            type="submit"
-                            onClick={() =>
-                              setIndicator({
-                                ...indicator,
-                                state: "activate",
-                              })
-                            }
-                          >
-                            <div className="bg-yellow-500 hover:bg-yellow-600  rounded-2xl h-11 text-xl flex items-center justify-center">
+                          <button className="w-3/5 pt-5" type="submit">
+                            <div className="bg-yellow-500 hover:bg-yellow-600 rounded-2xl h-11 text-xl flex items-center justify-center">
                               Activate
                             </div>
                           </button>
@@ -356,8 +364,43 @@ export default function Trading() {
             </div>
             <div
               id="transaction"
-              className="w-6/12 h-full flex flex-col rounded-2xl content-center items-center justify-start bg-black bg-opacity-10 text-white"
-            ></div>
+              className="w-6/12 h-full flex flex-col rounded-2xl content-center justify-start bg-black bg-opacity-10 text-white"
+            >
+              <div className="p-5 ">
+                <div className="text-2xl">Transection History</div>
+                <div className="w-full flex justify-between text-xs px-2 py-2">
+                  <span>id</span>
+                  <span>Amount</span>
+                  <span>Date</span>
+                  <span>Price</span>
+                  <span>Profit/Lose</span>
+                </div>
+                {transaction.length > 0 ? (
+                  {
+                    ...transaction.map((item) => (
+                      <div
+                        className="w-full flex justify-between text-xs px-2 py-2"
+                        key={item.id}
+                      >
+                        <span>{item.id}</span>
+                        <span>{item.amount}</span>
+                        <span>{item.date}</span>
+                        <span>{item.price}</span>
+                        <span>{item.profit}</span>
+                      </div>
+                    )),
+                  }
+                ) : (
+                  <div className="w-full flex justify-between text-xs px-2 py-2">
+                    <span>0</span>
+                    <span>0</span>
+                    <span>0</span>
+                    <span>0</span>
+                    <span>0</span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

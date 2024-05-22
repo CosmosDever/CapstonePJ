@@ -11,7 +11,16 @@ export default function Setting() {
     api_key: "",
     secret_key: "",
   });
-  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
+  const [showPopup, setShowPopup] = useState(false);
+  function obfuscateEmail(email) {
+    let [local, domain] = email.split("@");
+
+    let firstThree = local.substring(0, 3);
+
+    let obfuscatedLocal = firstThree + "*".repeat(local.length - 3);
+
+    return obfuscatedLocal + "@" + domain;
+  }
 
   const Api_submit = async (e) => {
     e.preventDefault();
@@ -21,7 +30,7 @@ export default function Setting() {
         API_SECRET: api_keyfrom.secret_key,
       });
       console.log(response);
-      // Close the popup after successful submission
+
       setShowPopup(false);
     } catch (error) {
       console.error("Error posting data: ", error);
@@ -33,11 +42,11 @@ export default function Setting() {
       console.log(response.data.token.ctoken);
       setUserfrom({
         ...userfrom,
-        email: response.data.token.ctoken.email,
+        email: obfuscateEmail(response.data.token.ctoken.email),
         username: response.data.token.ctoken.username,
       });
     });
-  }, []); // Add empty dependency array to run only once on component mount
+  }, []);
 
   return (
     <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex justify-between">
@@ -56,24 +65,27 @@ export default function Setting() {
               <div className="text-white ">{userfrom.username}</div>
             </div>
           </div>
-          <div className="flex flex-row w-full p-5 gap-5">
+          <div className="flex flex-col w-full p-5 gap-5 lg:flex-row ">
             <button
               className="flex items-center justify-center  w-2/5 gap-2 p-3 bg-[#E2B000] hover:bg-[#E2B000]/80 rounded-2xl"
-              onClick={() => setShowPopup(true)} // Show the popup on button click
+              onClick={() => setShowPopup(true)}
             >
-              <span className="text-white text-2xl">Set up your Api Key</span>
+              <span className="text-white text-sm lg:text-2xl">
+                Set up your Api Key
+              </span>
             </button>
             <button
               className="flex items-center justify-center  w-2/5 gap-2 p-3 bg-[#E2B000] hover:bg-[#E2B000]/80 rounded-2xl"
               onClick={() => (window.location.href = "/changepwd/sendOTP")}
             >
-              <span className="text-white text-2xl">Change Password</span>
+              <span className="text-white text-sm lg:text-2xl">
+                Change Password
+              </span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Popup */}
       {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-70 flex justify-center items-center">
           <div className="bg-white p-8 rounded-lg">

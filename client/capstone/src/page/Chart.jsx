@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 import Sidebar from "../component/sidebar";
-import { Slider, RangeSlider, Row, Col, InputGroup, InputNumber } from "rsuite";
 
 export default function Chart() {
   const [tokenValid, setTokenValid] = useState(true);
@@ -64,9 +63,9 @@ export default function Chart() {
   }, []);
 
   return (
-    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex justify-between">
+    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen items-center flex justify-between">
       <Sidebar />
-      <div className="flex-1 flex items-center justify-center">
+      <div className="w-4/5 h-5/6 flex-1 flex items-center content-center justify-center">
         <div className="tradingview-widget-container" ref={container}></div>
       </div>
     </main>
