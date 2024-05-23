@@ -261,22 +261,24 @@ export default function Trading() {
                       <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
                         <span className="text-xl p-5 ">{indicator.amount}</span>
                       </div>
-                      <input
-                        type="range"
-                        min={0}
-                        max={parseFloat(accountbalance.balance).toFixed(2)}
-                        value={indicator.amount}
-                        className="range range-xs [--range-shdw:#D1AD1F]"
-                        step="0.01"
-                        id="Quantity"
-                        name="Quantity"
-                        onChange={(e) =>
-                          setIndicator({
-                            ...indicator,
-                            amount: e.target.value,
-                          })
-                        }
-                      />
+                      <div className="w-full py-2">
+                        <input
+                          type="range"
+                          min={0}
+                          max={parseFloat(accountbalance.balance).toFixed(2)}
+                          value={indicator.amount}
+                          className="range range-xs [--range-shdw:#D1AD1F]"
+                          step="0.01"
+                          id="Quantity"
+                          name="Quantity"
+                          onChange={(e) =>
+                            setIndicator({
+                              ...indicator,
+                              amount: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
                       <div className="w-full flex justify-between text-xs px-2">
                         <span>|</span>
                         <span>|</span>
@@ -389,83 +391,249 @@ export default function Trading() {
               id="transaction"
               className="w-6/12 h-full flex flex-col rounded-2xl content-center justify-start bg-black bg-opacity-10 text-white"
             >
-              <div className="p-5 ">
-                <div className="text-2xl">Transection History</div>
-                <div className="w-full flex  text-xs px-2 py-2 justify-between">
-                  <span>id</span>
-                  <span className="xl:ml-20">Amount</span>
-                  <span className="xl:ml-14">Date</span>
-                  <span className="xl:ml-14">Price</span>
-                  <span>Side</span>
-                  <span className="xl:ml-2">Profit/Lose</span>
-                </div>
-                {transaction.length > 0 ? (
-                  transaction.map((item, index) => {
-                    let profit = 0;
-                    if (item.side === "SELL") {
-                      let buyAmount = 0;
-                      let buyCost = 0;
-                      for (let i = 0; i < index; i++) {
-                        const prevItem = transaction[i];
-                        if (
-                          prevItem.side === "BUY" &&
-                          buyAmount < parseFloat(item.executedQty)
-                        ) {
-                          const remainingQty =
-                            parseFloat(item.executedQty) - buyAmount;
-                          const prevQty = parseFloat(prevItem.executedQty);
-                          const qtyToUse = Math.min(prevQty, remainingQty);
-                          buyAmount += qtyToUse;
-                          buyCost += qtyToUse * parseFloat(prevItem.price);
-                        }
-                      }
-                      const sellRevenue =
-                        parseFloat(item.executedQty) * parseFloat(item.price);
-                      profit = sellRevenue - buyCost;
-                    }
-
-                    return (
-                      <div
-                        className="w-full flex justify-between text-xs px-2 py-2"
-                        key={item.orderId}
-                      >
-                        <span>{item.orderId}</span>
-                        <span>
-                          {parseFloat(item.cummulativeQuoteQty).toFixed(2)} usdt
-                        </span>
-                        <span>{new Date(item.time).toLocaleString()}</span>
-                        <span>{parseFloat(item.price).toFixed(2)} usdt</span>
-
-                        {item.side === "BUY" ? (
-                          <span className="text-green-500">{item.side}</span>
-                        ) : (
-                          <span className="text-red-500">{item.side}</span>
-                        )}
-
-                        <span>
-                          {profit > 0 ? (
-                            <span className="text-green-500">
-                              {"+" + profit.toFixed(2)}
-                            </span>
-                          ) : (
-                            <span className="text-red-500">
-                              {"-" + profit.toFixed(2)}
-                            </span>
-                          )}{" "}
-                          usdt
-                        </span>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="w-full flex justify-between text-xs px-2 py-2">
-                    <span>0</span>
-                    <span>0</span>
-                    <span>0</span>
-                    <span>0</span>
-                    <span>0</span>
+              <div id="history" className="w-full h-3/4 overflow-y-auto">
+                <div className="p-5">
+                  <div className="text-2xl">Transaction History</div>
+                  <div className="w-full flex text-xs px-2 py-2 justify-between">
+                    <span>id</span>
+                    <span className="xl:ml-20">Amount</span>
+                    <span className="xl:ml-14">Date</span>
+                    <span className="xl:ml-14">Price</span>
+                    <span>Side</span>
+                    <span className="xl:ml-2">Profit/Loss</span>
                   </div>
-                )}
+                  {transaction.length > 0 ? (
+                    transaction.map((item, index) => {
+                      let profit = 0;
+                      if (item.side === "SELL") {
+                        let buyAmount = 0;
+                        let buyCost = 0;
+                        for (let i = 0; i < index; i++) {
+                          const prevItem = transaction[i];
+                          if (
+                            prevItem.side === "BUY" &&
+                            buyAmount < parseFloat(item.executedQty)
+                          ) {
+                            const remainingQty =
+                              parseFloat(item.executedQty) - buyAmount;
+                            const prevQty = parseFloat(prevItem.executedQty);
+                            const qtyToUse = Math.min(prevQty, remainingQty);
+                            buyAmount += qtyToUse;
+                            buyCost += qtyToUse * parseFloat(prevItem.price);
+                          }
+                        }
+                        const sellRevenue =
+                          parseFloat(item.executedQty) * parseFloat(item.price);
+                        profit = sellRevenue - buyCost;
+                      }
+                      if (item.side === "BUY") {
+                        let sellAmount = 0;
+                        let sellCost = 0;
+                        for (let i = index + 1; i < transaction.length; i++) {
+                          const nextItem = transaction[i];
+                          if (
+                            nextItem.side === "SELL" &&
+                            sellAmount < parseFloat(item.executedQty)
+                          ) {
+                            const remainingQty =
+                              parseFloat(item.executedQty) - sellAmount;
+                            const nextQty = parseFloat(nextItem.executedQty);
+                            const qtyToUse = Math.min(nextQty, remainingQty);
+                            sellAmount += qtyToUse;
+                            sellCost += qtyToUse * parseFloat(nextItem.price);
+                          }
+                        }
+                        const buyRevenue =
+                          parseFloat(item.executedQty) * parseFloat(item.price);
+                        profit = sellCost - buyRevenue;
+                      }
+
+                      return (
+                        <div
+                          className="w-full flex justify-between text-xs px-2 py-2"
+                          key={item.orderId}
+                        >
+                          <span>{item.orderId}</span>
+                          <span>
+                            {parseFloat(item.cummulativeQuoteQty).toFixed(2)}{" "}
+                            usdt
+                          </span>
+                          <span>{new Date(item.time).toLocaleString()}</span>
+                          <span>{parseFloat(item.price).toFixed(2)} usdt</span>
+                          {item.side === "BUY" ? (
+                            <span className="text-green-500">{item.side}</span>
+                          ) : (
+                            <span className="text-red-500">{item.side}</span>
+                          )}
+                          <span>
+                            {profit > 0 ? (
+                              <span className="text-green-500">
+                                {"+" + profit.toFixed(2)}
+                              </span>
+                            ) : (
+                              <span className="text-red-500">
+                                {profit.toFixed(2)}
+                              </span>
+                            )}{" "}
+                            usdt
+                          </span>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="w-full flex justify-between text-xs px-2 py-2">
+                      <span>0</span>
+                      <span>0</span>
+                      <span>0</span>
+                      <span>0</span>
+                      <span>0</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div id="totalprofit" className="w-full h-1/4 ">
+                <div className="p-5 flex justify-end ">
+                  <div className=" py-10">
+                    <div className="text-2xl">Total Profit</div>
+                    <div
+                      className={`text-xl ${
+                        transaction.reduce((total, item, index) => {
+                          if (item.side === "SELL") {
+                            let buyAmount = 0;
+                            let buyCost = 0;
+                            for (let i = 0; i < index; i++) {
+                              const prevItem = transaction[i];
+                              if (
+                                prevItem.side === "BUY" &&
+                                buyAmount < parseFloat(item.executedQty)
+                              ) {
+                                const remainingQty =
+                                  parseFloat(item.executedQty) - buyAmount;
+                                const prevQty = parseFloat(
+                                  prevItem.executedQty
+                                );
+                                const qtyToUse = Math.min(
+                                  prevQty,
+                                  remainingQty
+                                );
+                                buyAmount += qtyToUse;
+                                buyCost +=
+                                  qtyToUse * parseFloat(prevItem.price);
+                              }
+                            }
+                            const sellRevenue =
+                              parseFloat(item.executedQty) *
+                              parseFloat(item.price);
+                            return total + (sellRevenue - buyCost);
+                          }
+                          if (item.side === "BUY") {
+                            let sellAmount = 0;
+                            let sellCost = 0;
+                            for (
+                              let i = index + 1;
+                              i < transaction.length;
+                              i++
+                            ) {
+                              const nextItem = transaction[i];
+                              if (
+                                nextItem.side === "SELL" &&
+                                sellAmount < parseFloat(item.executedQty)
+                              ) {
+                                const remainingQty =
+                                  parseFloat(item.executedQty) - sellAmount;
+                                const nextQty = parseFloat(
+                                  nextItem.executedQty
+                                );
+                                const qtyToUse = Math.min(
+                                  nextQty,
+                                  remainingQty
+                                );
+                                sellAmount += qtyToUse;
+                                sellCost +=
+                                  qtyToUse * parseFloat(nextItem.price);
+                              }
+                            }
+                            const buyRevenue =
+                              parseFloat(item.executedQty) *
+                              parseFloat(item.price);
+                            return total + (sellCost - buyRevenue);
+                          }
+                          return total;
+                        }, 0) >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {transaction
+                        .reduce((total, item, index) => {
+                          if (item.side === "SELL") {
+                            let buyAmount = 0;
+                            let buyCost = 0;
+                            for (let i = 0; i < index; i++) {
+                              const prevItem = transaction[i];
+                              if (
+                                prevItem.side === "BUY" &&
+                                buyAmount < parseFloat(item.executedQty)
+                              ) {
+                                const remainingQty =
+                                  parseFloat(item.executedQty) - buyAmount;
+                                const prevQty = parseFloat(
+                                  prevItem.executedQty
+                                );
+                                const qtyToUse = Math.min(
+                                  prevQty,
+                                  remainingQty
+                                );
+                                buyAmount += qtyToUse;
+                                buyCost +=
+                                  qtyToUse * parseFloat(prevItem.price);
+                              }
+                            }
+                            const sellRevenue =
+                              parseFloat(item.executedQty) *
+                              parseFloat(item.price);
+                            return total + (sellRevenue - buyCost);
+                          }
+                          if (item.side === "BUY") {
+                            let sellAmount = 0;
+                            let sellCost = 0;
+                            for (
+                              let i = index + 1;
+                              i < transaction.length;
+                              i++
+                            ) {
+                              const nextItem = transaction[i];
+                              if (
+                                nextItem.side === "SELL" &&
+                                sellAmount < parseFloat(item.executedQty)
+                              ) {
+                                const remainingQty =
+                                  parseFloat(item.executedQty) - sellAmount;
+                                const nextQty = parseFloat(
+                                  nextItem.executedQty
+                                );
+                                const qtyToUse = Math.min(
+                                  nextQty,
+                                  remainingQty
+                                );
+                                sellAmount += qtyToUse;
+                                sellCost +=
+                                  qtyToUse * parseFloat(nextItem.price);
+                              }
+                            }
+                            const buyRevenue =
+                              parseFloat(item.executedQty) *
+                              parseFloat(item.price);
+                            return total + (sellCost - buyRevenue);
+                          }
+                          return total;
+                        }, 0)
+                        .toFixed(2)}{" "}
+                      usdt
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

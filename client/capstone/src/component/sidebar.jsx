@@ -94,11 +94,11 @@ export default function Sidebar() {
             <div className="text-lg text-[#FFC700] text-center">
               {accountbalance.balanceusdt === "Please set api in setting"
                 ? "Please set api in setting"
-                : accountbalance.balanceusdt + "usdt"}
+                : accountbalance.balanceusdt + " usdt"}
               <br />
               {accountbalance.balancebtc === "Please set api in setting"
                 ? ""
-                : accountbalance.balancebtc + "btc"}
+                : accountbalance.balancebtc + " btc"}
             </div>
           </div>
         </div>
