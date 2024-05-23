@@ -446,6 +446,7 @@ while True:
        
         if response_user.status_code == 200: 
             response_user_json = response_user.json()
+            # print(response_user_json)
             if response_user_json.get('message') == 'not token':
                 print("not token")
                 time.sleep(10)  
@@ -462,12 +463,13 @@ while True:
         else:
             print(f"GET request failed with status code: {response_user.status_code}")
             print(f"Reason: {response_user.reason}")
-        response = requests.get(url_get, json=json_user)
-
+        response = requests.post(url_get, json=json_user)
+        # print(response)
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
             # Parse the JSON response
             response_data = response.json()
+            # print(response_data)
             
             # Extract the "indicator" object
             indicator = response_data.get('accsetting', {}).get('indicator', None)

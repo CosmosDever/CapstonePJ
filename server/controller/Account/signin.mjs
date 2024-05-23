@@ -36,7 +36,7 @@ export const signin = async (req, res) => {
     const token = jwt.sign(payload, secret, { expiresIn: "7d" });
     localStorage.setItem("localtoken", token);
     const localtoken = localStorage.getItem("localtoken");
-    console.log(token);
+    console.log(localtoken);
     res.cookie("token", token, { httpOnly: true });
     res.status(200).json({ message: "signin success", result: token });
   } catch (error) {
