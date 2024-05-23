@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 export default function Changepwd() {
   const { email } = useParams();
   const [changepwdfrom, setChangepwdfrom] = useState({
@@ -10,12 +11,24 @@ export default function Changepwd() {
   });
 
   const handleSubmit = (e) => {
-    console.log(changepwdfrom);
-    if (changepwdfrom.password !== changepwdfrom.confirmpassword) {
-      alert("password not match");
+    e.preventDefault();
+    if (changepwdfrom.password.length < 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Password Too Short",
+        text: "Password must be at least 8 characters long",
+      });
       return;
     }
-    e.preventDefault();
+    if (changepwdfrom.password !== changepwdfrom.confirmpassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password does not match",
+      });
+      return;
+    }
+
     axiosInstance
       .post("Account/change_pwd", {
         email: changepwdfrom.email,
@@ -24,15 +37,41 @@ export default function Changepwd() {
       .then((response) => {
         console.log(response.data);
         if (response.data.message === "password update") {
-          window.location.href = "/";
+          try {
+            axiosInstance.post("Account/signout").then((response) => {
+              console.log(response.data);
+              if (response.data.message === "signout success") {
+              }
+            });
+          } catch (error) {
+            console.log(error);
+          }
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Password Updated",
+            confirmButtonText: "Back to Sign In",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/";
+            }
+          });
         }
-        if (response.data.message !== "password changed") {
-          alert(response.data.message);
+        if (response.data.message !== "password update") {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: response.data.message,
+          });
         }
       })
       .catch((error) => {
         console.log(error);
-        alert(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error,
+        });
       });
   };
   return (
@@ -71,7 +110,7 @@ export default function Changepwd() {
         </div>
         <button
           type="submit"
-          className="bg-[#E2B000] font-bold py-2 px-4 rounded"
+          className="bg-[#E2B000] font-bold py-2 px-4 rounded text-white hover:scale-110"
         >
           Submit
         </button>

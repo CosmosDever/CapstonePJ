@@ -11,6 +11,7 @@ export default function Setting() {
     api_key: "",
     secret_key: "",
   });
+  const [checkApi, setCheckApi] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   function obfuscateEmail(email) {
     let [local, domain] = email.split("@");
@@ -46,6 +47,24 @@ export default function Setting() {
         username: response.data.token.ctoken.username,
       });
     });
+    async function getBalance() {
+      try {
+        await axiosInstance
+          .get("Account/getBalance")
+          .then((response) => {
+            console.log(response.data);
+            if (response.data.massege === "success") {
+              setCheckApi(true);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getBalance();
   }, []);
 
   return (
@@ -65,6 +84,7 @@ export default function Setting() {
               <div className="text-white ">{userfrom.username}</div>
             </div>
           </div>
+
           <div className="flex flex-col w-full p-5 gap-5 lg:flex-row ">
             <button
               className="flex items-center justify-center  w-2/5 gap-2 p-3 bg-[#E2B000] hover:bg-[#E2B000]/80 rounded-2xl"
@@ -74,6 +94,7 @@ export default function Setting() {
                 Set up your Api Key
               </span>
             </button>
+
             <button
               className="flex items-center justify-center  w-2/5 gap-2 p-3 bg-[#E2B000] hover:bg-[#E2B000]/80 rounded-2xl"
               onClick={() => (window.location.href = "/changepwd/sendOTP")}
@@ -83,6 +104,53 @@ export default function Setting() {
               </span>
             </button>
           </div>
+          {checkApi ? (
+            <>
+              <span className="flex flex-col w-full px-5 gap-5  ">
+                <div
+                  role="alert"
+                  className="alert alert-success w-3/12 h-9 text-center flex items-center justify-start rounded-2xl"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="stroke-current shrink-0 h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>Your Api Key has been set</span>
+                </div>
+              </span>
+            </>
+          ) : (
+            <span className="flex flex-col w-full px-5 gap-5  ">
+              <div
+                role="alert"
+                className="alert alert-warning w-5/12 h-9 text-center flex items-center justify-start rounded-2xl"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+                <span>Warning: Your Api Key has not been set or invalid</span>
+              </div>
+            </span>
+          )}
         </div>
       </div>
 

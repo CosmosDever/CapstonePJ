@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
-
+import Swal from "sweetalert2";
 export default function Emailfind() {
   const [emailfindfrom, setEmailfindfrom] = useState({
     email: "",
@@ -17,7 +17,11 @@ export default function Emailfind() {
           window.location.href = `/changepwd/verifyotp/${emailfindfrom.email}`;
         }
         if (response.data.message !== "email send") {
-          alert(response.data.message);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: response.data.message,
+          });
         }
       });
   };
@@ -40,7 +44,7 @@ export default function Emailfind() {
         </div>
         <button
           type="submit"
-          className="bg-[#E2B000] font-bold py-2 px-4 rounded"
+          className="bg-[#E2B000] font-bold py-2 px-4 rounded text-white hover:scale-110"
         >
           Send OTP
         </button>

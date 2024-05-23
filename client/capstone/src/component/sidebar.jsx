@@ -63,10 +63,10 @@ export default function Sidebar() {
     }
 
     async function fetchData() {
-      setLoading(true); // Set loading to true before fetching data
+      setLoading(true);
       await checkToken();
       await getBalance();
-      setLoading(false); // Set loading to false after data is fetched
+      setLoading(false);
     }
 
     fetchData();

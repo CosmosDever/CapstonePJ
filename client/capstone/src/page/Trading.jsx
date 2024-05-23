@@ -49,11 +49,11 @@ export default function Trading() {
       const response = await axiosInstance.post("Account/setindicator", {
         username: userfrom.username,
         indicator: {
-          ATR: indicator.ATR,
-          ADX: indicator.ADX,
-          RSI: indicator.RSI,
-          SMA: indicator.SMA,
-          amount: indicator.amount,
+          ATR: parseInt(indicator.ATR),
+          ADX: parseInt(indicator.ADX),
+          RSI: parseInt(indicator.RSI),
+          SMA: parseInt(indicator.SMA),
+          amount: parseInt(indicator.amount),
           state: "activate",
         },
       });

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
+import Swal from "sweetalert2";
 
 export default function SignIn() {
   useEffect(() => {
@@ -37,7 +38,12 @@ export default function SignIn() {
             window.location.href = "/chart";
           }
           if (response.data.message !== "signin success") {
-            alert(response.data.message);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: response.data.message,
+              footer: "maybe try again",
+            });
           }
         });
     } catch (error) {
@@ -81,7 +87,7 @@ export default function SignIn() {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-6/12 h-10 bg-[#E2B000] rounded-2xl hover:scale-110   hover:text-white"
+                className="w-6/12 h-10 bg-[#E2B000] text-white rounded-2xl hover:scale-110  "
               >
                 Sign In
               </button>

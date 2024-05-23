@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 export default function VerifyOtp() {
   const { email } = useParams();
   const [verifyfrom, setVerifyfrom] = useState({
@@ -22,7 +23,11 @@ export default function VerifyOtp() {
             window.location.href = `/changepwd/${email}`;
           }
           if (response.data.message !== "otp verified") {
-            alert(response.data.message);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: response.data.message,
+            });
           }
         });
     } catch (error) {
@@ -49,7 +54,7 @@ export default function VerifyOtp() {
         </div>
         <button
           type="submit"
-          className="bg-[#E2B000] font-bold py-2 px-4 rounded"
+          className="bg-[#E2B000] font-bold py-2 px-4 rounded text-white hover:scale-110"
         >
           Submit
         </button>
