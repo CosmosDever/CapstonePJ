@@ -7,7 +7,8 @@ export default function Sidebar() {
     username: "",
   });
   const [accountbalance, setAccountbalance] = useState({
-    balance: "Please set api in setting",
+    balanceusdt: "Please set api in setting",
+    balancebtc: "Please set api in setting",
   });
   const [loading, setLoading] = useState(true); // Add loading state
 
@@ -50,7 +51,8 @@ export default function Sidebar() {
             console.log(response.data);
             if (response.data.massege === "success") {
               setAccountbalance({
-                balance: response.data.usdt,
+                balanceusdt: response.data.usdt,
+                balancebtc: response.data.btc,
               });
             }
           })
@@ -84,11 +86,19 @@ export default function Sidebar() {
     <>
       <div className="h-full text-white bg-black bg-opacity-10  w-2/5 md:w-1/5 flex flex-col  items-center justify-center ">
         <div className="gap-10 flex flex-col items-center justify-center">
-          <div className="text-2xl text-white">{userfrom.username}</div>
+          <div className="text-2xl text-white">
+            {userfrom.username === "" ? "Server Down" : userfrom.username}
+          </div>
           <div className="flex flex-col  items-center justify-center text-lg text-white text-opacity-75">
             Account Balance
             <div className="text-lg text-[#FFC700] text-center">
-              {accountbalance.balance}$
+              {accountbalance.balanceusdt === "Please set api in setting"
+                ? "Please set api in setting"
+                : accountbalance.balanceusdt + "usdt"}
+              <br />
+              {accountbalance.balancebtc === "Please set api in setting"
+                ? ""
+                : accountbalance.balancebtc + "btc"}
             </div>
           </div>
         </div>

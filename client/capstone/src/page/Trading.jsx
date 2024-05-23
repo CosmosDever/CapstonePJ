@@ -23,6 +23,9 @@ export default function Trading() {
     amount: 0,
     state: "",
   });
+  const [accountbalance, setAccountbalance] = useState({
+    balance: 0,
+  });
   const [transaction, setTransaction] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -53,7 +56,7 @@ export default function Trading() {
           ADX: parseInt(indicator.ADX),
           RSI: parseInt(indicator.RSI),
           SMA: parseInt(indicator.SMA),
-          amount: parseInt(indicator.amount),
+          amount: parseFloat(indicator.amount).toFixed(2),
           state: "activate",
         },
       });
@@ -75,7 +78,7 @@ export default function Trading() {
           ADX: indicator.ADX,
           RSI: indicator.RSI,
           SMA: indicator.SMA,
-          amount: indicator.amount,
+          amount: parseFloat(indicator.amount).toFixed(2),
           state: "deactivate",
         },
       });
@@ -103,6 +106,25 @@ export default function Trading() {
         console.log(error);
       }
     }
+    async function getBalance() {
+      try {
+        await axiosInstance
+          .get("Account/getBalance")
+          .then((response) => {
+            console.log(response.data);
+            if (response.data.massege === "success") {
+              setAccountbalance({
+                balance: response.data.usdt,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     async function getIndicator() {
       try {
@@ -124,7 +146,7 @@ export default function Trading() {
     async function getTransaction() {
       try {
         const response = await axiosInstance.get("BuySell/GetOrder");
-        setTransaction(response.data);
+        setTransaction(response.data.reverse());
         console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -136,6 +158,7 @@ export default function Trading() {
       await getIndicator();
       await getPrice();
       await getTransaction();
+      await getBalance();
       setLoading(false);
     }
 
@@ -169,7 +192,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-xl ">
                 <div>Price</div>
                 <div className="text-[10px] lg:text-xl">
-                  {pricedata.openPrice}$
+                  {pricedata.openPrice} usdt
                 </div>
               </div>
             </div>
@@ -180,7 +203,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-xl">
                 <div>24 High</div>
                 <div className="text-[10px] lg:text-xl">
-                  {pricedata.highPrice}$
+                  {pricedata.highPrice} usdt
                 </div>
               </div>
             </div>
@@ -191,7 +214,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-xl">
                 <div>24 Low</div>
                 <div className="text-[10px] lg:text-xl">
-                  {pricedata.lowPrice}$
+                  {pricedata.lowPrice} usdt
                 </div>
               </div>
             </div>
@@ -213,7 +236,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-lg">
                 <div>Change Percent</div>
                 <div className=" text-[10px] lg:text-lg">
-                  {pricedata.priceChangePercent}%
+                  {pricedata.priceChangePercent} %
                 </div>
               </div>
             </div>
@@ -241,10 +264,10 @@ export default function Trading() {
                       <input
                         type="range"
                         min={0}
-                        max="100"
+                        max={parseFloat(accountbalance.balance).toFixed(2)}
                         value={indicator.amount}
                         className="range range-xs [--range-shdw:#D1AD1F]"
-                        step="5"
+                        step="0.01"
                         id="Quantity"
                         name="Quantity"
                         onChange={(e) =>
@@ -263,10 +286,10 @@ export default function Trading() {
                       </div>
                       <div className="w-full flex justify-between text-xs px-2">
                         <span>0</span>
-                        <span>25</span>
-                        <span>50</span>
-                        <span>75</span>
-                        <span>100</span>
+                        <span>25%</span>
+                        <span>50%</span>
+                        <span>75%</span>
+                        <span>100%</span>
                       </div>
                       <label htmlFor="ATR" className="pt-2">
                         ATR
@@ -368,28 +391,72 @@ export default function Trading() {
             >
               <div className="p-5 ">
                 <div className="text-2xl">Transection History</div>
-                <div className="w-full flex justify-between text-xs px-2 py-2">
+                <div className="w-full flex  text-xs px-2 py-2 justify-between">
                   <span>id</span>
-                  <span>Amount</span>
-                  <span>Date</span>
-                  <span>Price</span>
-                  <span>Profit/Lose</span>
+                  <span className="xl:ml-20">Amount</span>
+                  <span className="xl:ml-14">Date</span>
+                  <span className="xl:ml-14">Price</span>
+                  <span>Side</span>
+                  <span className="xl:ml-2">Profit/Lose</span>
                 </div>
                 {transaction.length > 0 ? (
-                  {
-                    ...transaction.map((item) => (
+                  transaction.map((item, index) => {
+                    let profit = 0;
+                    if (item.side === "SELL") {
+                      let buyAmount = 0;
+                      let buyCost = 0;
+                      for (let i = 0; i < index; i++) {
+                        const prevItem = transaction[i];
+                        if (
+                          prevItem.side === "BUY" &&
+                          buyAmount < parseFloat(item.executedQty)
+                        ) {
+                          const remainingQty =
+                            parseFloat(item.executedQty) - buyAmount;
+                          const prevQty = parseFloat(prevItem.executedQty);
+                          const qtyToUse = Math.min(prevQty, remainingQty);
+                          buyAmount += qtyToUse;
+                          buyCost += qtyToUse * parseFloat(prevItem.price);
+                        }
+                      }
+                      const sellRevenue =
+                        parseFloat(item.executedQty) * parseFloat(item.price);
+                      profit = sellRevenue - buyCost;
+                    }
+
+                    return (
                       <div
                         className="w-full flex justify-between text-xs px-2 py-2"
-                        key={item.id}
+                        key={item.orderId}
                       >
-                        <span>{item.id}</span>
-                        <span>{item.amount}</span>
-                        <span>{item.date}</span>
-                        <span>{item.price}</span>
-                        <span>{item.profit}</span>
+                        <span>{item.orderId}</span>
+                        <span>
+                          {parseFloat(item.cummulativeQuoteQty).toFixed(2)} usdt
+                        </span>
+                        <span>{new Date(item.time).toLocaleString()}</span>
+                        <span>{parseFloat(item.price).toFixed(2)} usdt</span>
+
+                        {item.side === "BUY" ? (
+                          <span className="text-green-500">{item.side}</span>
+                        ) : (
+                          <span className="text-red-500">{item.side}</span>
+                        )}
+
+                        <span>
+                          {profit > 0 ? (
+                            <span className="text-green-500">
+                              {"+" + profit.toFixed(2)}
+                            </span>
+                          ) : (
+                            <span className="text-red-500">
+                              {"-" + profit.toFixed(2)}
+                            </span>
+                          )}{" "}
+                          usdt
+                        </span>
                       </div>
-                    )),
-                  }
+                    );
+                  })
                 ) : (
                   <div className="w-full flex justify-between text-xs px-2 py-2">
                     <span>0</span>
