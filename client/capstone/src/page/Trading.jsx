@@ -173,9 +173,26 @@ export default function Trading() {
 
   if (loading) {
     return (
-      <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex items-center justify-center">
-        <div className="text-white text-2xl">Loading...</div>
-      </main>
+      <div className="w-screen h-screen flex items-center justify-center bg-gray-900 text-white">
+        <div className="flex flex-col items-center">
+          <svg className="animate-spin h-10 w-10 mb-4" viewBox="0 0 24 24">
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+          <span>Loading...</span>
+        </div>
+      </div>
     );
   }
 
@@ -256,114 +273,212 @@ export default function Trading() {
                   }
                 >
                   <div className="flex flex-col">
-                    <div className="flex flex-col">
-                      <label htmlFor="Quantity">Quantity</label>
-                      <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
-                        <span className="text-xl p-5 ">{indicator.amount}</span>
+                    {indicator.state === "activate" ? (
+                      <div className="flex flex-col w-full ">
+                        <div className="flex flex-col">
+                          <label htmlFor="Quantity">Quantity</label>
+                          <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
+                            <span className="text-xl p-5 ">
+                              {indicator.amount}
+                            </span>
+                          </div>
+                          <div className="w-full py-2">
+                            <input
+                              type="range"
+                              min={0}
+                              max={parseFloat(accountbalance.balance).toFixed(
+                                2
+                              )}
+                              value={indicator.amount}
+                              className="range range-xs [--range-shdw:#D1AD1F]"
+                              step="0.01"
+                              id="Quantity"
+                              name="Quantity"
+                              readOnly
+                            />
+                          </div>
+                          <div className="w-full flex justify-between text-xs px-2">
+                            <span>|</span>
+                            <span>|</span>
+                            <span>|</span>
+                            <span>|</span>
+                            <span>|</span>
+                          </div>
+                          <div className="w-full flex justify-between text-xs px-2">
+                            <span>0</span>
+                            <span>25%</span>
+                            <span>50%</span>
+                            <span>75%</span>
+                            <span>100%</span>
+                          </div>
+                          <label htmlFor="ATR" className="pt-2">
+                            ATR
+                          </label>
+                          <input
+                            type="number"
+                            id="ATR"
+                            name="ATR"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.ATR}
+                            readOnly
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label htmlFor="ADX" className="pt-2">
+                            ADX
+                          </label>
+                          <input
+                            type="number"
+                            id="ADX"
+                            name="ADX"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.ADX}
+                            readOnly
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label htmlFor="RSI" className="pt-2">
+                            RSI
+                          </label>
+                          <input
+                            type="number"
+                            id="RSI"
+                            name="RSI"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.RSI}
+                            readOnly
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label htmlFor="SMA" className="pt-2">
+                            SMA
+                          </label>
+                          <input
+                            type="number"
+                            id="SMA"
+                            name="SMA"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.SMA}
+                            readOnly
+                          />
+                        </div>
                       </div>
-                      <div className="w-full py-2">
-                        <input
-                          type="range"
-                          min={0}
-                          max={parseFloat(accountbalance.balance).toFixed(2)}
-                          value={indicator.amount}
-                          className="range range-xs [--range-shdw:#D1AD1F]"
-                          step="0.01"
-                          id="Quantity"
-                          name="Quantity"
-                          onChange={(e) =>
-                            setIndicator({
-                              ...indicator,
-                              amount: e.target.value,
-                            })
-                          }
-                        />
+                    ) : (
+                      <div className="flex flex-col w-full">
+                        <div className="flex flex-col">
+                          <label htmlFor="Quantity">Quantity</label>
+                          <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
+                            <span className="text-xl p-5 ">
+                              {indicator.amount}
+                            </span>
+                          </div>
+                          <div className="w-full py-2">
+                            <input
+                              type="range"
+                              min={0}
+                              max={parseFloat(accountbalance.balance).toFixed(
+                                2
+                              )}
+                              value={indicator.amount}
+                              className="range range-xs [--range-shdw:#D1AD1F]"
+                              step="0.01"
+                              id="Quantity"
+                              name="Quantity"
+                              onChange={(e) =>
+                                setIndicator({
+                                  ...indicator,
+                                  amount: e.target.value,
+                                })
+                              }
+                            />
+                          </div>
+                          <div className="w-full flex justify-between text-xs px-2">
+                            <span>|</span>
+                            <span>|</span>
+                            <span>|</span>
+                            <span>|</span>
+                            <span>|</span>
+                          </div>
+                          <div className="w-full flex justify-between text-xs px-2">
+                            <span>0</span>
+                            <span>25%</span>
+                            <span>50%</span>
+                            <span>75%</span>
+                            <span>100%</span>
+                          </div>
+                          <label htmlFor="ATR" className="pt-2">
+                            ATR
+                          </label>
+                          <input
+                            type="number"
+                            id="ATR"
+                            name="ATR"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.ATR}
+                            onChange={(e) =>
+                              setIndicator({
+                                ...indicator,
+                                ATR: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label htmlFor="ADX" className="pt-2">
+                            ADX
+                          </label>
+                          <input
+                            type="number"
+                            id="ADX"
+                            name="ADX"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.ADX}
+                            onChange={(e) =>
+                              setIndicator({
+                                ...indicator,
+                                ADX: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label htmlFor="RSI" className="pt-2">
+                            RSI
+                          </label>
+                          <input
+                            type="number"
+                            id="RSI"
+                            name="RSI"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.RSI}
+                            onChange={(e) =>
+                              setIndicator({
+                                ...indicator,
+                                RSI: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <label htmlFor="SMA" className="pt-2">
+                            SMA
+                          </label>
+                          <input
+                            type="number"
+                            id="SMA"
+                            name="SMA"
+                            className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
+                            value={indicator.SMA}
+                            onChange={(e) =>
+                              setIndicator({
+                                ...indicator,
+                                SMA: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
                       </div>
-                      <div className="w-full flex justify-between text-xs px-2">
-                        <span>|</span>
-                        <span>|</span>
-                        <span>|</span>
-                        <span>|</span>
-                        <span>|</span>
-                      </div>
-                      <div className="w-full flex justify-between text-xs px-2">
-                        <span>0</span>
-                        <span>25%</span>
-                        <span>50%</span>
-                        <span>75%</span>
-                        <span>100%</span>
-                      </div>
-                      <label htmlFor="ATR" className="pt-2">
-                        ATR
-                      </label>
-                      <input
-                        type="number"
-                        id="ATR"
-                        name="ATR"
-                        className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
-                        value={indicator.ATR}
-                        onChange={(e) =>
-                          setIndicator({
-                            ...indicator,
-                            ATR: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label htmlFor="ADX" className="pt-2">
-                        ADX
-                      </label>
-                      <input
-                        type="number"
-                        id="ADX"
-                        name="ADX"
-                        className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
-                        value={indicator.ADX}
-                        onChange={(e) =>
-                          setIndicator({
-                            ...indicator,
-                            ADX: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label htmlFor="RSI" className="pt-2">
-                        RSI
-                      </label>
-                      <input
-                        type="number"
-                        id="RSI"
-                        name="RSI"
-                        className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
-                        value={indicator.RSI}
-                        onChange={(e) =>
-                          setIndicator({
-                            ...indicator,
-                            RSI: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label htmlFor="SMA" className="pt-2">
-                        SMA
-                      </label>
-                      <input
-                        type="number"
-                        id="SMA"
-                        name="SMA"
-                        className="bg-white bg-opacity-10 rounded-2xl h-11 text-xl p-5"
-                        value={indicator.SMA}
-                        onChange={(e) =>
-                          setIndicator({
-                            ...indicator,
-                            SMA: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
+                    )}
                     <div className="flex flex-row w-full">
                       {indicator.state === "activate" ? (
                         <div className="flex items-center justify-center w-full ">

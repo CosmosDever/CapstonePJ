@@ -10,7 +10,7 @@ export const getuser = async (req, res) => {
       return res.status(200).send({ message: "not token" });
     }
     const decode = jwt.verify(token, secret);
-    // console.log(decode);
+    //console.log(decode);
     const username = decode.ctoken.username;
     res.status(200).send({ message: "have token", username: username });
   } catch (error) {
