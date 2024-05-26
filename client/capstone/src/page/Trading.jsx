@@ -89,6 +89,9 @@ export default function Trading() {
       console.error("Error posting data: ", error);
     }
   };
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   useEffect(() => {
     async function getPrice() {
@@ -209,7 +212,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-xl ">
                 <div>Price</div>
                 <div className="text-[10px] lg:text-xl">
-                  {pricedata.openPrice} usdt
+                  {numberWithCommas(pricedata.openPrice)} usdt
                 </div>
               </div>
             </div>
@@ -220,7 +223,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-xl">
                 <div>24 High</div>
                 <div className="text-[10px] lg:text-xl">
-                  {pricedata.highPrice} usdt
+                  {numberWithCommas(pricedata.highPrice)} usdt
                 </div>
               </div>
             </div>
@@ -231,7 +234,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-xl">
                 <div>24 Low</div>
                 <div className="text-[10px] lg:text-xl">
-                  {pricedata.lowPrice} usdt
+                  {numberWithCommas(pricedata.lowPrice)} usdt
                 </div>
               </div>
             </div>
@@ -242,7 +245,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-lg">
                 <div>Volume BTC</div>
                 <div className="text-[10px] lg:text-lg">
-                  {pricedata.volumeBTC} BTC
+                  {numberWithCommas(pricedata.volumeBTC)} BTC
                 </div>
               </div>
             </div>
@@ -253,7 +256,7 @@ export default function Trading() {
               <div className="p-5 text-[10px] lg:text-lg">
                 <div>Change Percent</div>
                 <div className=" text-[10px] lg:text-lg">
-                  {pricedata.priceChangePercent} %
+                  {numberWithCommas(pricedata.priceChangePercent)} %
                 </div>
               </div>
             </div>
@@ -276,7 +279,7 @@ export default function Trading() {
                     {indicator.state === "activate" ? (
                       <div className="flex flex-col w-full ">
                         <div className="flex flex-col">
-                          <label htmlFor="Quantity">Quantity</label>
+                          <label htmlFor="Quantity">Amont (usdt)</label>
                           <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
                             <span className="text-xl p-5 ">
                               {indicator.amount}
@@ -366,7 +369,7 @@ export default function Trading() {
                     ) : (
                       <div className="flex flex-col w-full">
                         <div className="flex flex-col">
-                          <label htmlFor="Quantity">Quantity</label>
+                          <label htmlFor="Quantity">Amont (usdt)</label>
                           <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
                             <span className="text-xl p-5 ">
                               {indicator.amount}
@@ -574,7 +577,12 @@ export default function Trading() {
                             usdt
                           </span>
                           <span>{new Date(item.time).toLocaleString()}</span>
-                          <span>{parseFloat(item.price).toFixed(2)} usdt</span>
+                          <span>
+                            {numberWithCommas(
+                              parseFloat(item.price).toFixed(2)
+                            )}{" "}
+                            usdt
+                          </span>
                           {item.side === "BUY" ? (
                             <span className="text-green-500">{item.side}</span>
                           ) : (
