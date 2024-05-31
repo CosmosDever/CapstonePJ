@@ -97,6 +97,9 @@ export default function Trading() {
     async function getPrice() {
       try {
         const response = await axiosInstance.get("BuySell/Get24hStatististics");
+        if (response.data.massege === "API not found") {
+          window.location.href = "/Setting";
+        }
         setPricedata({
           openPrice: response.data[0].openPrice,
           priceChangePercent: response.data[0].priceChangePercent,
@@ -115,6 +118,9 @@ export default function Trading() {
           .get("Account/getBalance")
           .then((response) => {
             console.log(response.data);
+            if (response.data.massege === "API not found") {
+              window.location.href = "/Setting";
+            }
             if (response.data.massege === "success") {
               setAccountbalance({
                 balance: response.data.usdt,
@@ -149,6 +155,9 @@ export default function Trading() {
     async function getTransaction() {
       try {
         const response = await axiosInstance.get("BuySell/GetOrder");
+        if (response.data.massege === "API not found") {
+          window.location.href = "/Setting";
+        }
         setTransaction(response.data.reverse());
         console.log(response.data);
       } catch (error) {
@@ -200,7 +209,7 @@ export default function Trading() {
   }
 
   return (
-    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex items-center justify-between">
+    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex flex-col md:flex-row items-center justify-between">
       <Sidebar />
       <div className="flex-1 flex w-full h-full items-center justify-center">
         <div className="w-11/12 h-5/6 flex-col flex ">

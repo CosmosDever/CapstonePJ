@@ -12,6 +12,6 @@ export const fetchBalances = async (req, res) => {
     const btc = coin.filter((res) => res.coin === "BTC");
     res.send({ massege: "success", usdt: usdt[0].free, btc: btc[0].free });
   } catch (error) {
-    res.status(200).send({ massege: "API not found" });
+    res.status(200).send({ massege: "API not found", error: error });
   }
 };

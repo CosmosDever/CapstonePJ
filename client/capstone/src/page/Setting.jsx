@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/axiosinstance";
 import Sidebar from "../component/sidebar";
-
+import { Link } from "react-router-dom";
 export default function Setting() {
   const [userfrom, setUserfrom] = useState({
     email: "",
@@ -88,7 +88,7 @@ export default function Setting() {
   }
 
   return (
-    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex justify-between">
+    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex flex-col md:flex-row items-center justify-between">
       <Sidebar />
       <div className="flex-1 flex w-full h-full items-center justify-center">
         <div className="w-11/12 h-5/6 flex-col rounded-3xl flex content-center items-center justify-center">
@@ -152,7 +152,7 @@ export default function Setting() {
             <span className="flex flex-col w-full px-5 gap-5">
               <div
                 role="alert"
-                className="alert alert-warning w-5/12 h-9 text-center flex items-center justify-start rounded-2xl"
+                className="alert alert-warning w-7/12 h-9 text-center flex items-center justify-start rounded-2xl"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -167,10 +167,20 @@ export default function Setting() {
                     d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                   />
                 </svg>
-                <span className="text-[10px] lg:text-lg">
+                <span className="text-[10px] lg:text-sm xl:text-lg">
                   Warning: Your Api Key has not been set or invalid
                 </span>
               </div>
+              <span className="text-white mb-5">
+                <Link
+                  to="https://support.binance.us/hc/en-us/articles/360051091473-How-To-Create-an-API-Key-on-Binance-US"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  How to get your API key ?
+                </Link>
+              </span>
             </span>
           )}
         </div>
