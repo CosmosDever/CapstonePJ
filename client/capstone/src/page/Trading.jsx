@@ -97,6 +97,9 @@ export default function Trading() {
     async function getPrice() {
       try {
         const response = await axiosInstance.get("BuySell/Get24hStatististics");
+        if (response.data.massege === "API not found") {
+          window.location.href = "/Setting";
+        }
         setPricedata({
           openPrice: response.data[0].openPrice,
           priceChangePercent: response.data[0].priceChangePercent,
@@ -115,6 +118,9 @@ export default function Trading() {
           .get("Account/getBalance")
           .then((response) => {
             console.log(response.data);
+            if (response.data.massege === "API not found") {
+              window.location.href = "/Setting";
+            }
             if (response.data.massege === "success") {
               setAccountbalance({
                 balance: response.data.usdt,
@@ -149,6 +155,9 @@ export default function Trading() {
     async function getTransaction() {
       try {
         const response = await axiosInstance.get("BuySell/GetOrder");
+        if (response.data.massege === "API not found") {
+          window.location.href = "/Setting";
+        }
         setTransaction(response.data.reverse());
         console.log(response.data);
       } catch (error) {
@@ -200,14 +209,14 @@ export default function Trading() {
   }
 
   return (
-    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex items-center justify-between">
+    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-full md:h-screen flex flex-col md:flex-row items-center justify-between">
       <Sidebar />
       <div className="flex-1 flex w-full h-full items-center justify-center">
         <div className="w-11/12 h-5/6 flex-col flex ">
-          <div className="w-full h-1/5 flex flex-row  items-center justify-between ">
+          <div className="w-full h-1/5 flex flex-row  items-center justify-between">
             <div
               id="Price"
-              className="ml-5 w-1/6 h-3/5 flex rounded-2xl content-center items-center justify-start bg-black bg-opacity-10 text-white"
+              className="ml-5 w-1/6 h-3/5 flex  rounded-2xl content-center items-center justify-start bg-black bg-opacity-10 text-white"
             >
               <div className="p-5 text-[10px] lg:text-xl ">
                 <div>Price</div>
@@ -261,10 +270,10 @@ export default function Trading() {
               </div>
             </div>
           </div>
-          <div className="w-full h-full flex flex-row justify-between">
+          <div className="w-full h-full flex flex-col md:flex-row  md:justify-between ">
             <div
               id="indicator"
-              className="w-5/12 h-full flex flex-col rounded-2xl justify-start bg-black bg-opacity-10 text-white"
+              className="w-full h-full md:w-5/12  flex flex-col rounded-2xl justify-start bg-black bg-opacity-10 text-white"
             >
               <div className="p-5">
                 <div className="text-2xl">Indicator</div>
@@ -279,7 +288,7 @@ export default function Trading() {
                     {indicator.state === "activate" ? (
                       <div className="flex flex-col w-full ">
                         <div className="flex flex-col">
-                          <label htmlFor="Quantity">Amont (usdt)</label>
+                          <label htmlFor="Quantity">Amount (usdt)</label>
                           <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
                             <span className="text-xl p-5 ">
                               {indicator.amount}
@@ -369,7 +378,7 @@ export default function Trading() {
                     ) : (
                       <div className="flex flex-col w-full">
                         <div className="flex flex-col">
-                          <label htmlFor="Quantity">Amont (usdt)</label>
+                          <label htmlFor="Quantity">Amount (usdt)</label>
                           <div className="bg-white bg-opacity-10 rounded-2xl h-12 flex items-center ">
                             <span className="text-xl p-5 ">
                               {indicator.amount}
@@ -507,7 +516,7 @@ export default function Trading() {
             </div>
             <div
               id="transaction"
-              className="w-6/12 h-full flex flex-col rounded-2xl content-center justify-start bg-black bg-opacity-10 text-white"
+              className="w-full h-full md:w-6/12 max-md:mt-10 flex flex-col rounded-2xl content-center justify-start bg-black bg-opacity-10 text-white"
             >
               <div id="history" className="w-full h-3/4 overflow-y-auto">
                 <div className="p-5">

@@ -18,6 +18,7 @@ export const get24hStatististics = async (req, res) => {
       api_key: localStorage.getItem("API_KEY"),
       api_secret: localStorage.getItem("API_SECRET"),
     });
+
     const coinStatististics = await client.get24hrChangeStatististics({
       symbol: "BTCUSDT",
     });
@@ -39,7 +40,6 @@ export const get24hStatististics = async (req, res) => {
     });
     res.send(coinStatististicsres);
   } catch (error) {
-    console.log(error);
-    res.status(500).send({ error: "Internal Server Error" });
+    res.status(200).send({ massege: "API not found" });
   }
 };

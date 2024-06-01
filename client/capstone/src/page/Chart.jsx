@@ -63,7 +63,7 @@ export default function Chart() {
   }, []);
 
   return (
-    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen items-center flex justify-between">
+    <main className="bg-gradient-to-br from-[#776212] via-[#171A1E] to-[#100F4A] w-screen h-screen flex flex-col md:flex-row items-center justify-between">
       <Sidebar />
       <div className="w-4/5 h-5/6 flex-1 flex items-center content-center justify-center">
         <div className="tradingview-widget-container" ref={container}></div>
