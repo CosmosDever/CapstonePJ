@@ -47,6 +47,12 @@ export default function SignIn() {
           }
         });
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "something went wrong",
+        footer: "maybe try again",
+      });
       console.log(error);
     }
   };

@@ -86,7 +86,17 @@ export default function SignUp() {
       .then((response) => {
         console.log(response.data.message);
         if (response.data.message === "signup success") {
-          window.location.href = "/";
+          // window.location.href = "/";
+          Swal.fire({
+            icon: "success",
+            title: "Signup Success",
+            text: "You have successfully signed up. Please Sign In.",
+            confirmButtonText: "Sign In",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/";
+            }
+          });
         } else {
           Swal.fire({
             icon: "error",
