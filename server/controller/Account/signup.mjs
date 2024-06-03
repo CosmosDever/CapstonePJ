@@ -38,7 +38,7 @@ export const signup = async (req, res) => {
           ADX: 14,
           RSI: 14,
           SMA: 30,
-          amount: 25,
+          amount: 0.0,
           state: "deactivate",
         },
       },
